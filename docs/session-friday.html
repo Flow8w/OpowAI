@@ -399,33 +399,45 @@
   <!-- ════════════════════════════════════════════════════════════ -->
   <section class="phase">
     <div class="phase-label">Bloc 1 — Install</div>
-    <h2 class="phase-title">On <em>installe</em> OpowAI sur ta machine.</h2>
-    <p class="phase-intro">2 commandes terminal, ensuite plus jamais on retourne au terminal.</p>
+    <h2 class="phase-title">On <em>installe</em> OpowAI depuis Claude Code.</h2>
+    <p class="phase-intro">Une seule commande terminale (lancer Claude), tout le reste se passe en conversation. Aucune commande à taper soi-même.</p>
 
     <div class="step">
-      <div class="step-head"><span class="step-num">1</span>Cloner le repo public</div>
+      <div class="step-head"><span class="step-num">1</span>Lancer Claude Code depuis ton dossier home</div>
       <div class="step-body">
-<pre><code>git clone https://github.com/Flow8w/OpowAI.git ~/opowai</code></pre>
-        <div class="step-verify">Tu vois un dossier <code>~/opowai</code> qui se remplit. Pas d'erreur, pas de demande d'auth.</div>
+        <p>Ouvre ton terminal et tape :</p>
+<pre><code>cd ~ &amp;&amp; claude</code></pre>
+        <p>C'est la <strong>seule commande terminal</strong> de toute la session. À partir de maintenant, tout se passe dans Claude Code.</p>
+        <div class="step-verify">L'interface Claude Code s'ouvre, prête à recevoir un message.</div>
       </div>
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-num">2</span>Lancer l'installer</div>
+      <div class="step-head"><span class="step-num">2</span>Demander à Claude d'installer OpowAI</div>
       <div class="step-body">
-<pre><code>cd ~/opowai &amp;&amp; bash install.sh</code></pre>
-        <p>Le script vérifie tes prérequis, crée un virtualenv Python, installe les dépendances, configure les permissions. Aucune interaction de ta part.</p>
-        <div class="step-verify">Tu vois à la fin : <strong>"Installation terminée 🎉"</strong> et 3 prochaines étapes affichées.</div>
-        <div class="step-warn">Si le script échoue, il te dit où ça coince. On le règle ensemble avant de continuer.</div>
+        <p>Dans le chat Claude Code, tape simplement :</p>
+<pre><code>Installe OpowAI pour moi</code></pre>
+        <p>Claude va exécuter via son outil Bash :</p>
+        <ul style="font-size: 13.5px; margin: 0.4rem 0;">
+          <li><code>git clone https://github.com/Flow8w/OpowAI.git ~/opowai</code></li>
+          <li><code>cd ~/opowai &amp;&amp; bash install.sh</code></li>
+        </ul>
+        <p>Il te demande l'autorisation d'exécuter ces commandes. Tu confirmes.</p>
+        <div class="step-verify">Tu vois Claude exécuter les commandes en direct. À la fin : <strong>"Installation terminée 🎉"</strong>.</div>
+        <div class="step-warn">Si l'installer remonte une erreur (Python trop ancien, etc.), Claude te le dit clairement. On le règle ensemble.</div>
       </div>
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-num">3</span>Lancer Claude Code</div>
+      <div class="step-head"><span class="step-num">3</span>Relancer Claude Code dans ~/opowai</div>
       <div class="step-body">
-<pre><code>claude</code></pre>
-        <p>Claude Code démarre dans ton dossier <code>~/opowai</code> et lit automatiquement <code>CLAUDE.md</code>.</p>
-        <div class="step-verify">Tu vois l'interface Claude Code prête à recevoir une commande.</div>
+        <p>Claude te le rappelle de lui-même : les <em>slash commands</em> d'OpowAI (<code>/setup-opowai</code>, <code>/opowai-status</code>, etc.) ne sont disponibles que dans une session Claude lancée depuis <code>~/opowai</code>.</p>
+        <p>Quitte la session actuelle :</p>
+<pre><code>/quit</code></pre>
+        <p>Puis relance depuis <code>~/opowai</code> :</p>
+<pre><code>cd ~/opowai &amp;&amp; claude</code></pre>
+        <p>C'est la seule deuxième commande terminale de la session, et la dernière.</p>
+        <div class="step-verify">Claude Code se relance et reconnaît tous les skills OpowAI (tu peux le vérifier en tapant <code>/</code> — tu vois la liste des commandes disponibles).</div>
       </div>
     </div>
 
