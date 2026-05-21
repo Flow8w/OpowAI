@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OpowAI v0.1 — Guide de prise en main</title>
+<meta name="description" content="Guide de prise en main d'OpowAI v0.1 — le système d'exploitation augmenté des fondateurs et COMEX." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Inter+Tight:wght@300;400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23CC5B2E'/%3E%3Cstop offset='.5' stop-color='%23B8A6CC'/%3E%3Cstop offset='1' stop-color='%2394B8A8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%23121113'/%3E%3Ccircle cx='32' cy='32' r='14' fill='url(%23g)'/%3E%3C/svg%3E" type="image/svg+xml" />
+
+<style>
+  :root {
+    --bg:            #F5F1EA;
+    --bg-paper:      #FBF8F2;
+    --bg-card:       #FFFFFF;
+    --bg-dark:       #121113;
+    --bg-peach:      #F5E1D5;
+    --bg-honey:      #F5EAD0;
+    --bg-lavender:   #E8DDE8;
+    --bg-mint:       #DCE8DC;
+    --text:          #121113;
+    --text-muted:    #3F3E42;
+    --text-light:    #7A7770;
+    --accent:        #CC5B2E;
+    --rule:          rgba(18, 17, 19, 0.10);
+    --rule-strong:   rgba(18, 17, 19, 0.25);
+    --serif:         "Fraunces", "Times New Roman", Georgia, serif;
+    --sans:          "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:          "JetBrains Mono", ui-monospace, monospace;
+
+    /* Le dégradé AI signature : corail → pêche → miel → violet → vert */
+    --grad-ai: linear-gradient(135deg, #CC5B2E 0%, #E8997B 22%, #F5C97B 45%, #B8A6CC 72%, #94B8A8 100%);
+    --grad-ai-soft: linear-gradient(135deg, rgba(204,91,46,0.08) 0%, rgba(184,166,204,0.08) 50%, rgba(148,184,168,0.08) 100%);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15.5px;
+    line-height: 1.65;
+    letter-spacing: -0.003em;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(204,91,46,0.3); }
+  a:hover { border-bottom-color: var(--accent); }
+  p { margin: 0 0 1em; }
+  ul, ol { margin: 0 0 1em; padding-left: 1.2em; }
+  li { margin-bottom: 0.4em; }
+  strong { font-weight: 500; color: var(--text); }
+
+  /* === PAGE LAYOUT (PDF-style) === */
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--bg-paper);
+    padding: 5rem 5.5rem;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(18,17,19,0.04);
+  }
+  .page + .page { margin-top: 2rem; }
+
+  @media (max-width: 720px) {
+    .page { padding: 3rem 1.5rem; }
+  }
+
+  /* === COVER === */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4rem 5.5rem;
+    background: var(--bg-paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    width: 70%;
+    height: 80%;
+    background: var(--grad-ai);
+    opacity: 0.18;
+    filter: blur(80px);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    position: relative;
+    z-index: 1;
+  }
+  .cover-mark {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .cover-mark::after {
+    content: "";
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--grad-ai);
+  }
+  .cover-main {
+    position: relative;
+    z-index: 1;
+    max-width: 28ch;
+  }
+  .cover-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+  .cover-title {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin: 0 0 2rem;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+  }
+  .cover-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 80;
+  }
+  .cover-subtitle {
+    font-family: var(--sans);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--text-muted);
+    max-width: 36ch;
+  }
+  .cover-foot {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+  }
+  .cover-foot strong { color: var(--text); font-weight: 500; }
+
+  /* === TOC === */
+  .toc-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    display: block;
+  }
+  .toc-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 2.6rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 3.5rem;
+  }
+  .toc-title em { font-style: italic; color: var(--accent); }
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .toc li {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .toc li:last-child { border-bottom: 1px solid var(--rule); }
+  .toc-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 350;
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+  .toc-link {
+    font-size: 1.05rem;
+    font-weight: 450;
+    color: var(--text);
+    letter-spacing: -0.005em;
+    border-bottom: none;
+  }
+  .toc-link:hover { color: var(--accent); }
+  .toc-page {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--text-light);
+  }
+
+  /* === CHAPTER HEADER === */
+  .chapter-head {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .chapter-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .chapter-num::before {
+    content: "";
+    width: 32px;
+    height: 2px;
+    background: var(--grad-ai);
+    border-radius: 1px;
+  }
+  .chapter-title {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+  .chapter-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 70;
+  }
+  .chapter-deck {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  /* === TYPOGRAPHY IN BODY === */
+  h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    margin: 2.5rem 0 0.75rem;
+    color: var(--text);
+  }
+  h4 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 1.75rem 0 0.4rem;
+    color: var(--text);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 50ch;
+    margin: 0 0 2rem;
+    font-variation-settings: "opsz" 32, "SOFT" 50;
+  }
+
+  /* === CALLOUT (gradient AI border) === */
+  .callout {
+    position: relative;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+    background: var(--bg-card);
+    border-radius: 10px;
+    box-shadow: 0 1px 0 rgba(18,17,19,0.03);
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: var(--grad-ai);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+  .callout-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* Pull quote */
+  .pullquote {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-style: italic;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    margin: 3rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid;
+    border-image: var(--grad-ai) 1;
+    max-width: 30ch;
+    font-variation-settings: "opsz" 96;
+  }
+  .pullquote em { color: var(--accent); }
+
+  /* === ARCHITECTURE STACK (vertical, PDF-like) === */
+  .stack {
+    margin: 2.5rem 0;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+  .stack-layer {
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .stack-layer + .stack-layer { border-top: 1px solid var(--rule); }
+  .stack-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stack-name { font-size: 0.98rem; font-weight: 500; line-height: 1.3; margin-bottom: 2px; }
+  .stack-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; }
+  .stack-tag {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    background: var(--bg);
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .stack-flow {
+    text-align: center;
+    padding: 0.5rem 0;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    background: var(--grad-ai-soft);
+  }
+
+  /* === PHASES (setup) === */
+  .phases-list {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0;
+    counter-reset: phase;
+  }
+  .phases-list > li {
+    display: grid;
+    grid-template-columns: 48px 1fr 80px;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+    counter-increment: phase;
+  }
+  .phases-list > li:last-child { border-bottom: 1px solid var(--rule); }
+  .phases-list > li::before {
+    content: counter(phase, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .phase-h { font-size: 1.05rem; font-weight: 500; margin-bottom: 4px; letter-spacing: -0.005em; }
+  .phase-d { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin: 0; }
+  .phase-t {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-align: right;
+  }
+
+  /* === RHYTHM TABLE === */
+  .rhythm {
+    margin: 2.5rem 0;
+  }
+  .rhythm-block {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .rhythm-block:last-child { border-bottom: 1px solid var(--rule); }
+  .rhythm-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+  }
+  .rhythm-tag.d { background: var(--bg-peach); color: var(--accent); }
+  .rhythm-tag.w { background: var(--bg-lavender); color: #6B5B95; }
+  .rhythm-tag.m { background: var(--bg-mint); color: #2F5F3E; }
+  .rhythm-h { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; letter-spacing: -0.008em; }
+  .rhythm-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1rem;
+  }
+  @media (max-width: 600px) {
+    .rhythm-list { grid-template-columns: 1fr; }
+  }
+  .rhythm-list li {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+    padding: 4px 0;
+  }
+  .rhythm-list code {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--bg-peach);
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  /* === SKILLS / PLAYBOOKS — compact PDF tables === */
+  .table-doc {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 14px;
+  }
+  .table-doc th, .table-doc td {
+    text-align: left;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .table-doc th {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 0.5rem;
+  }
+  .table-doc td.col-name {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--accent);
+    white-space: nowrap;
+    width: 30%;
+  }
+  .table-doc td.col-num {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent);
+    width: 36px;
+  }
+  .table-doc td.col-cat {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    white-space: nowrap;
+    width: 20%;
+  }
+  .table-doc td.col-desc { color: var(--text-muted); }
+  .table-doc tbody tr:hover { background: var(--bg); }
+
+  /* Group sub-header in table */
+  .table-doc tr.group td {
+    padding-top: 1.5rem;
+    border-bottom: none;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  /* === PRINCIPES === */
+  .principes {
+    margin: 2rem 0;
+    counter-reset: princ;
+  }
+  .principe-row {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+    counter-increment: princ;
+  }
+  .principe-row:last-child { border-bottom: 1px solid var(--rule); }
+  .principe-row::before {
+    content: counter(princ, decimal-leading-zero);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--accent);
+    line-height: 1;
+    align-self: start;
+    padding-top: 2px;
+  }
+  .principe-h { font-size: 1rem; font-weight: 500; margin: 0 0 0.35rem; letter-spacing: -0.005em; }
+  .principe-d { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin: 0; }
+
+  /* === FINAL / NEXT === */
+  .next {
+    background: var(--bg-dark);
+    color: var(--bg);
+    padding: 4rem 5.5rem;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .next::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--grad-ai);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .next-inner { position: relative; z-index: 1; }
+  .next-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .next-title {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.05;
+    color: var(--bg);
+    margin: 0 0 1.5rem;
+    max-width: 22ch;
+  }
+  .next-title em { font-style: italic; color: var(--accent); }
+  .next p {
+    color: rgba(245,241,234,0.78);
+    max-width: 40rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .next p strong { color: var(--bg); }
+  .next-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 500;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--bg); color: var(--text); }
+  .btn-ghost {
+    color: var(--bg);
+    border: 1px solid rgba(245,241,234,0.3);
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 500;
+    background: transparent;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-ghost:hover { border-color: var(--bg); background: rgba(245,241,234,0.05); }
+
+  /* === RUNNING HEADER (PDF folio) === */
+  .folio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .folio strong { color: var(--text); font-weight: 500; }
+
+  /* === COVER PAGE FOOTER === */
+  .pdf-note {
+    background: var(--bg-dark);
+    color: var(--bg);
+    padding: 8px 20px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .pdf-note strong { color: var(--accent); }
+
+  /* === PRINT === */
+  @media print {
+    body { background: white; }
+    .pdf-note { display: none; }
+    .page, .cover, .next {
+      box-shadow: none;
+      margin: 0;
+      padding: 2.5cm 2cm;
+      max-width: none;
+      page-break-after: always;
+    }
+    .next { page-break-after: avoid; }
+    .cover { min-height: auto; }
+    h3, .chapter-head, .pullquote, .callout, .stack, .principes, .table-doc { page-break-inside: avoid; }
+    a { color: var(--text); border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pdf-note">
+  Guide v0.1 · <strong>OpowAI</strong> — Document de prise en main — Mai 2026 · Ctrl+P pour version PDF
+</div>
+
+<!-- ========== COVER ========== -->
+<section class="cover">
+  <div class="cover-top">
+    <span>OpowAI · v0.1.0</span>
+    <div class="cover-mark"></div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-eyebrow">Guide de prise en main · Mai 2026</div>
+    <h1 class="cover-title">
+      Un système<br>
+      <em>d'exploitation</em><br>
+      augmenté.
+    </h1>
+    <p class="cover-subtitle">
+      Le cockpit IA des fondateurs et COMEX qui veulent structurer leurs opérations sans embaucher trois équivalents temps plein.
+    </p>
+  </div>
+
+  <div class="cover-foot">
+    <span>Par <strong>Florian Guerrier</strong></span>
+    <span>Accès anticipé · 18 playbooks · 24 skills</span>
+  </div>
+</section>
+
+<!-- ========== TABLE OF CONTENTS ========== -->
+<section class="page">
+  <span class="toc-label">Sommaire</span>
+  <h2 class="toc-title">Ce que <em>vous</em><br>allez trouver ici.</h2>
+
+  <nav class="toc">
+    <ol>
+      <li><span class="toc-num">01</span><a class="toc-link" href="#ch1">Le problème qu'OpowAI résout</a><span class="toc-page">p. 03</span></li>
+      <li><span class="toc-num">02</span><a class="toc-link" href="#ch2">Architecture — trois couches qui se parlent</a><span class="toc-page">p. 05</span></li>
+      <li><span class="toc-num">03</span><a class="toc-link" href="#ch3">Hands-on — 30 minutes pour démarrer</a><span class="toc-page">p. 07</span></li>
+      <li><span class="toc-num">04</span><a class="toc-link" href="#ch4">Le rythme — vivre avec OpowAI</a><span class="toc-page">p. 09</span></li>
+      <li><span class="toc-num">05</span><a class="toc-link" href="#ch5">Catalogue des skills — 24 capabilities</a><span class="toc-page">p. 11</span></li>
+      <li><span class="toc-num">06</span><a class="toc-link" href="#ch6">Playbooks pré-injectés — les 18 fondations</a><span class="toc-page">p. 14</span></li>
+      <li><span class="toc-num">07</span><a class="toc-link" href="#ch7">Principes — pourquoi ça tient dans le temps</a><span class="toc-page">p. 16</span></li>
+      <li><span class="toc-num">08</span><a class="toc-link" href="#ch8">Et après — la suite du voyage</a><span class="toc-page">p. 18</span></li>
+    </ol>
+  </nav>
+</section>
+
+<!-- ========== CHAPITRE 01 ========== -->
+<section class="page" id="ch1">
+  <div class="folio"><span>Chapitre 01 — Le problème</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Chapitre un</div>
+    <h2 class="chapter-title">Le problème qu'OpowAI <em>résout</em>.</h2>
+    <p class="chapter-deck">
+      Quand on dirige une startup, on porte trois jobs : la stratégie, les opérations, la coordination. L'IA promet de soulager. En pratique, elle ajoute du chaos. OpowAI règle ça.
+    </p>
+  </header>
+
+  <p class="lede">
+    « J'ai cinq outils, dix process, et personne dans ma tête pour orchestrer tout ça. »
+  </p>
+
+  <h3>Le quotidien d'un fondateur en 2026</h3>
+  <p>
+    Vous jonglez entre Notion, Slack, Linear, votre CRM, votre boîte mail, votre calendrier. Chacun de ces outils contient une part de vérité sur votre boîte — mais aucun ne la contient toute. <strong>Le contexte vit dans votre tête</strong>, et c'est exactement le problème.
+  </p>
+  <p>
+    Vous avez essayé ChatGPT, Claude.ai, peut-être Cursor. Ça aide pour rédiger un mail, débugger un script. Mais l'IA ne sait rien de votre boîte. Vous lui réexpliquez tout, à chaque conversation.
+  </p>
+
+  <div class="callout">
+    <span class="callout-label">Le constat</span>
+    <p>L'IA générale est puissante mais déconnectée. L'IA verticale (Gong, Apollo, etc.) connaît un domaine mais ignore le reste. <strong>Ce qui manque, c'est une couche personnelle qui agrège votre contexte et orchestre vos opérations</strong>.</p>
+  </div>
+
+  <h3>Ce qu'OpowAI propose</h3>
+  <p>
+    OpowAI est un vault Markdown couplé à Claude Code, structuré pour le quotidien d'un dirigeant : stratégie, équipe, board, capital, opérations. Il se connecte à votre stack existante, absorbe le contexte de votre entreprise, et devient le <strong>tissu nerveux</strong> qui relie vos décisions.
+  </p>
+  <p>
+    Pas un chatbot. Pas un dashboard. Pas une suite SaaS de plus. Un <strong>système</strong> qui apprend de votre boîte et grandit avec elle, distribué sur trois surfaces : votre cockpit (Claude Code), votre COMEX (Cowork), votre équipe (Notion).
+  </p>
+
+  <div class="pullquote">
+    Pas un outil que vous installez. Un <em>système</em> qui vit avec vous.
+  </div>
+
+  <h3>Pour qui c'est fait</h3>
+  <ul>
+    <li><strong>Fondateurs</strong> de startups SaaS Seed à Série B, qui sentent que leur boîte échappe à leur capacité de coordination.</li>
+    <li><strong>COO et Chiefs of Staff</strong> qui orchestrent les opérations et veulent un copilote au lieu d'un assistant.</li>
+    <li><strong>COMEX</strong> qui veulent partager un contexte vivant sans réécrire dix slides chaque semaine.</li>
+  </ul>
+  <p>
+    Si vous êtes solo founder pré-revenue, OpowAI est sur-dimensionné. Si vous êtes une grosse Série C+ avec une stack ops mature, OpowAI est un complément, pas un remplacement.
+  </p>
+</section>
+
+<!-- ========== CHAPITRE 02 ========== -->
+<section class="page" id="ch2">
+  <div class="folio"><span>Chapitre 02 — Architecture</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Chapitre deux</div>
+    <h2 class="chapter-title">Trois couches qui <em>se parlent</em>.</h2>
+    <p class="chapter-deck">
+      Une source de vérité, trois surfaces d'usage. Chacun voit ce qui le concerne, rien de plus.
+    </p>
+  </header>
+
+  <p>
+    OpowAI ne crée pas une nouvelle silo de données. Il <strong>orchestre</strong> les flux entre votre vault personnel, votre projet Cowork partagé, et votre Notion d'équipe. La privacy est garantie par frontmatter, pas par mot de passe.
+  </p>
+
+  <div class="stack">
+    <div class="stack-layer">
+      <span class="stack-num">1</span>
+      <div>
+        <div class="stack-name">GitHub privé — Source de vérité</div>
+        <div class="stack-desc">Backup automatique, multi-device gratuit, audit log via git history.</div>
+      </div>
+      <span class="stack-tag">Cloud · privé</span>
+    </div>
+    <div class="stack-flow">↓ git auto-sync ↓</div>
+    <div class="stack-layer">
+      <span class="stack-num">2</span>
+      <div>
+        <div class="stack-name">Claude Code (local) — Cockpit founder</div>
+        <div class="stack-desc">Vault complet, skills, agents, MCPs vers Gmail, Notion, Drive, CRM, Jira, Slack.</div>
+      </div>
+      <span class="stack-tag">Local · Max 5x</span>
+    </div>
+    <div class="stack-flow">↓ /sync-cowork hebdo · filtre privacy ↓</div>
+    <div class="stack-layer">
+      <span class="stack-num">3</span>
+      <div>
+        <div class="stack-name">Claude Cowork — Contexte COMEX</div>
+        <div class="stack-desc">7 Context Cards modulaires régénérées chaque semaine.</div>
+      </div>
+      <span class="stack-tag">Cowork · Team</span>
+    </div>
+    <div class="stack-flow">↓ /publish-sop à maturité ↓</div>
+    <div class="stack-layer">
+      <span class="stack-num">4</span>
+      <div>
+        <div class="stack-name">Notion — Canon pour l'équipe</div>
+        <div class="stack-desc">Page racine « 📚 OpowAI SOPs » avec arborescence par domaine, créée automatiquement.</div>
+      </div>
+      <span class="stack-tag">Notion · public</span>
+    </div>
+  </div>
+
+  <h3>La règle de privacy</h3>
+  <p>
+    Chaque fichier Markdown porte un frontmatter qui détermine sa visibilité :
+  </p>
+  <ul>
+    <li><code>private: founder</code> — Visible uniquement dans votre Claude Code. Jamais synchronisé ailleurs.</li>
+    <li><code>private: comex</code> — Synchronisé vers Cowork, mais pas publié comme SOP Notion.</li>
+    <li><code>private: false</code> (ou absent) — Synchronisé partout, candidat à devenir un SOP canonique.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="callout-label">Par défaut</span>
+    <p>Les dossiers sensibles (Fundraising, Board, Projets privés, M&amp;A) sont <strong>automatiquement</strong> configurés en <code>private: founder</code>. Vous n'avez rien à faire pour les protéger.</p>
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 03 ========== -->
+<section class="page" id="ch3">
+  <div class="folio"><span>Chapitre 03 — Hands-on</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Chapitre trois</div>
+    <h2 class="chapter-title">30 minutes pour <em>démarrer</em>.</h2>
+    <p class="chapter-deck">
+      Pas de doc de 50 pages, pas de Q&R interminable. Vous connectez vos outils, OpowAI scanne et propose un profil pré-rempli. Vous corrigez plutôt que d'écrire.
+    </p>
+  </header>
+
+  <p>
+    Le setup d'OpowAI suit cinq phases courtes. À la fin, vous avez un vault fonctionnel, vos rituels programmés, et votre première page de SOPs créée sur Notion.
+  </p>
+
+  <ol class="phases-list">
+    <li>
+      <div>
+        <div class="phase-h">Connecter votre stack</div>
+        <p class="phase-d">Notion → Drive → Gmail → Calendar → Slack → CRM → Project mgmt → Analytics. Séquencé par valeur, guidé par des prompts.</p>
+      </div>
+      <span class="phase-t">~ 10 min</span>
+    </li>
+    <li>
+      <div>
+        <div class="phase-h">Auto-discovery</div>
+        <p class="phase-d">Des agents parallèles scannent vos outils et inferent : équipe, COMEX, ICP, stack, glossaire, rituels calendrier.</p>
+      </div>
+      <span class="phase-t">5–10 min</span>
+    </li>
+    <li>
+      <div>
+        <div class="phase-h">Confirmation guidée</div>
+        <p class="phase-d">Vous validez ou corrigez ce qu'OpowAI a inféré. Beaucoup plus rapide que d'écrire from scratch.</p>
+      </div>
+      <span class="phase-t">~ 5 min</span>
+    </li>
+    <li>
+      <div>
+        <div class="phase-h">Sélection des playbooks</div>
+        <p class="phase-d">Activation des 5 playbooks les plus pertinents pour votre stade parmi les 18 préinstallés.</p>
+      </div>
+      <span class="phase-t">~ 5 min</span>
+    </li>
+    <li>
+      <div>
+        <div class="phase-h">Premier run</div>
+        <p class="phase-d">Création de la page Notion SOPs, lancement de votre premier <code>/daily-plan</code>, programmation des rituels.</p>
+      </div>
+      <span class="phase-t">~ 5 min</span>
+    </li>
+  </ol>
+
+  <div class="callout">
+    <span class="callout-label">Prérequis</span>
+    <p>Un compte GitHub (n'importe lequel), un abonnement Claude <strong>Max 5x ou supérieur</strong> (le plan Pro à 20 €/mois sature en 30 minutes d'usage intensif), et accès admin aux outils que vous voulez connecter. Le reste est géré par le setup.</p>
+  </div>
+
+  <div class="pullquote">
+    Vous <em>corrigez</em>. Vous n'écrivez pas.
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 04 ========== -->
+<section class="page" id="ch4">
+  <div class="folio"><span>Chapitre 04 — Le rythme</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Chapitre quatre</div>
+    <h2 class="chapter-title">Vivre <em>avec</em> OpowAI.</h2>
+    <p class="chapter-deck">
+      OpowAI n'est pas un outil que vous installez puis oubliez. C'est un système qui vit avec vous au quotidien, à la semaine, au mois.
+    </p>
+  </header>
+
+  <div class="rhythm">
+
+    <div class="rhythm-block">
+      <span class="rhythm-tag d">Quotidien</span>
+      <div class="rhythm-h">Pilotage de la journée</div>
+      <p style="font-size:14px; color:var(--text-muted); margin:0 0 0.5rem;">
+        Le matin, vous lancez votre plan. Le soir, vous capturez ce qui s'est passé. Entre les deux, OpowAI orchestre vos meetings et trie vos inputs.
+      </p>
+      <ul class="rhythm-list">
+        <li><code>/daily-plan</code>Plan structuré au matin</li>
+        <li><code>/daily-review</code>Revue + capture du soir</li>
+        <li><code>/meeting-prep</code>Prep meeting J-1</li>
+        <li><code>/process-meetings</code>Transcripts → tasks, people, projets</li>
+        <li><code>/triage</code>Tri inbox + extraction des tâches</li>
+        <li><code>/draft-support-reply</code>Brouillons mail support</li>
+      </ul>
+    </div>
+
+    <div class="rhythm-block">
+      <span class="rhythm-tag w">Hebdomadaire</span>
+      <div class="rhythm-h">Pilotage de la semaine</div>
+      <p style="font-size:14px; color:var(--text-muted); margin:0 0 0.5rem;">
+        Le vendredi soir, vous fermez la boucle. Le dimanche soir, OpowAI prépare la semaine suivante en arrière-plan.
+      </p>
+      <ul class="rhythm-list">
+        <li><code>/week-plan</code>Planification, suggestions</li>
+        <li><code>/week-review</code>Revue, patterns, learnings</li>
+        <li><code>/sync-cowork</code>Sync vers COMEX (dim 22h)</li>
+        <li><code>/drift-detection</code>Détection dérives (ven 17h)</li>
+        <li><code>/people-intel</code>Enrichissement avant meetings</li>
+        <li><code>/exec-summary</code>Synthèse exec investisseurs</li>
+      </ul>
+    </div>
+
+    <div class="rhythm-block">
+      <span class="rhythm-tag m">Mensuel & trimestriel</span>
+      <div class="rhythm-h">Pilotage stratégique</div>
+      <p style="font-size:14px; color:var(--text-muted); margin:0 0 0.5rem;">
+        Au mois, vous préparez votre all-hands. Au trimestre, vous arbitrez les priorités et vous préparez le board.
+      </p>
+      <ul class="rhythm-list">
+        <li><code>/all-hands</code>Draft all-hands mensuel</li>
+        <li><code>/publish-sop</code>Workflow mature → SOP</li>
+        <li><code>/quarter-plan</code>Objectifs stratégiques</li>
+        <li><code>/quarter-review</code>Revue, learnings</li>
+        <li><code>/board-prep</code>Préparation board</li>
+        <li><code>/operating-rhythm-audit</code>Audit cadence ops</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="pullquote">
+    Le système <em>grandit</em> avec vous, pas l'inverse.
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 05 ========== -->
+<section class="page" id="ch5">
+  <div class="folio"><span>Chapitre 05 — Skills</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Chapitre cinq</div>
+    <h2 class="chapter-title">Catalogue des <em>skills</em>.</h2>
+    <p class="chapter-deck">
+      24 skills opérationnels livrés en v0.1. Chacun résout un problème concret. Composables, déclenchables manuellement ou en agent récurrent.
+    </p>
+  </header>
+
+  <table class="table-doc">
+    <thead><tr><th>Skill</th><th>Ce qu'il fait</th></tr></thead>
+    <tbody>
+      <tr class="group"><td colspan="2">Setup &amp; maintenance système</td></tr>
+      <tr><td class="col-name">/setup-opowai</td><td class="col-desc">Onboarding 5 phases : connect → discover → confirm → playbooks → run.</td></tr>
+      <tr><td class="col-name">/sync-cowork</td><td class="col-desc">Sync hebdo du contexte entreprise vers Cowork (filtré privacy).</td></tr>
+      <tr><td class="col-name">/publish-sop</td><td class="col-desc">Création SOP Notion canonique depuis un workflow mature.</td></tr>
+      <tr><td class="col-name">/context-cards</td><td class="col-desc">Cards modulaires pour Cowork : Vision, OKRs, Org, ICP, Glossaire…</td></tr>
+      <tr><td class="col-name">/drift-detection</td><td class="col-desc">Détection hebdo des dérives : OKR stale, projet inactif, conflits.</td></tr>
+
+      <tr class="group"><td colspan="2">Rituels quotidiens</td></tr>
+      <tr><td class="col-name">/daily-plan</td><td class="col-desc">Plan de journée structuré (calendrier, tâches, priorités).</td></tr>
+      <tr><td class="col-name">/daily-review</td><td class="col-desc">Revue fin de journée + capture des learnings.</td></tr>
+      <tr><td class="col-name">/meeting-prep</td><td class="col-desc">Préparation meeting (attendees, topics, historique).</td></tr>
+      <tr><td class="col-name">/process-meetings</td><td class="col-desc">Transcripts → tasks, people, projets routés au bon endroit.</td></tr>
+      <tr><td class="col-name">/triage</td><td class="col-desc">Tri inbox + extraction des tâches éparses.</td></tr>
+
+      <tr class="group"><td colspan="2">Rituels hebdo &amp; trimestriels</td></tr>
+      <tr><td class="col-name">/week-plan</td><td class="col-desc">Planification semaine, suggestions intelligentes.</td></tr>
+      <tr><td class="col-name">/week-review</td><td class="col-desc">Revue hebdo, pattern detection.</td></tr>
+      <tr><td class="col-name">/quarter-plan</td><td class="col-desc">3-5 objectifs stratégiques du trimestre.</td></tr>
+      <tr><td class="col-name">/quarter-review</td><td class="col-desc">Revue trimestre, learnings, ajustements.</td></tr>
+      <tr><td class="col-name">/save-insight</td><td class="col-desc">Capture des learnings post-travail significatif.</td></tr>
+
+      <tr class="group"><td colspan="2">Stratégie, board &amp; capital</td></tr>
+      <tr><td class="col-name">/all-hands</td><td class="col-desc">Draft all-hands mensuel : KPIs auto-fetch, roadmap, narrative.</td></tr>
+      <tr><td class="col-name">/board-prep</td><td class="col-desc">Préparation board meeting (KPIs, narrative, anticipation Q&amp;A).</td></tr>
+      <tr><td class="col-name">/exec-summary</td><td class="col-desc">Synthèse exec hebdo pour board / investisseurs.</td></tr>
+      <tr><td class="col-name">/fundraising-tracker</td><td class="col-desc">Pipeline investisseurs (en mode <code>private: founder</code>).</td></tr>
+
+      <tr class="group"><td colspan="2">Opérations &amp; intelligence</td></tr>
+      <tr><td class="col-name">/draft-support-reply</td><td class="col-desc">Brouillons mail support, validation humaine obligatoire.</td></tr>
+      <tr><td class="col-name">/people-intel</td><td class="col-desc">Enrichissement automatique des personnes externes.</td></tr>
+      <tr><td class="col-name">/coach-team-member</td><td class="col-desc">Analyse de transcripts pour reco de dev individuel.</td></tr>
+      <tr><td class="col-name">/operating-rhythm-audit</td><td class="col-desc">Diagnostic cadence opérationnelle d'une boîte.</td></tr>
+      <tr><td class="col-name">/health-score-builder</td><td class="col-desc">Workshop pour construire un health score client custom.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <span class="callout-label">Agents preset</span>
+    <p>En plus des skills, OpowAI installe 8 agents récurrents : briefing matinal, sync Cowork dominical, drift check du vendredi, prep all-hands mensuel, intel pré-meeting J-1, etc. Vous les programmez au setup, ils tournent en arrière-plan.</p>
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 06 ========== -->
+<section class="page" id="ch6">
+  <div class="folio"><span>Chapitre 06 — Playbooks</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Chapitre six</div>
+    <h2 class="chapter-title">Les 18 <em>fondations</em>.</h2>
+    <p class="chapter-deck">
+      18 playbooks éprouvés, anonymisés, structurés selon le même squelette. Prêts à servir de référence pour vos SOPs internes.
+    </p>
+  </header>
+
+  <p>
+    Chaque playbook suit la même architecture : <em>Quand l'utiliser</em>, <em>Principes fondamentaux</em>, <em>Étapes &amp; process</em>, <em>Outils &amp; templates</em>, <em>Anti-patterns à éviter</em>, <em>Métriques de succès</em>, <em>Pour aller plus loin</em>.
+  </p>
+
+  <table class="table-doc">
+    <tbody>
+      <tr><td class="col-num">01</td><td>Hiring &amp; Onboarding</td><td class="col-cat">People</td></tr>
+      <tr><td class="col-num">02</td><td>Customer Discovery &amp; Validation</td><td class="col-cat">Product</td></tr>
+      <tr><td class="col-num">03</td><td>Pricing &amp; Monetization</td><td class="col-cat">Finance</td></tr>
+      <tr><td class="col-num">04</td><td>Board &amp; Investor Communication</td><td class="col-cat">Finance</td></tr>
+      <tr><td class="col-num">05</td><td>OKR Operating Model</td><td class="col-cat">Operations</td></tr>
+      <tr><td class="col-num">06</td><td>Customer Success &amp; Churn</td><td class="col-cat">Customer Success</td></tr>
+      <tr><td class="col-num">07</td><td>Sales Stage-Gates &amp; Pipeline</td><td class="col-cat">Sales</td></tr>
+      <tr><td class="col-num">08</td><td>Team 1:1 &amp; Performance Rituals</td><td class="col-cat">People</td></tr>
+      <tr><td class="col-num">09</td><td>Fundraising Readiness</td><td class="col-cat">Finance</td></tr>
+      <tr><td class="col-num">10</td><td>Crisis &amp; Comms</td><td class="col-cat">Crisis</td></tr>
+      <tr><td class="col-num">11</td><td>Operating Cadence</td><td class="col-cat">Operations</td></tr>
+      <tr><td class="col-num">12</td><td>AI-Augmented Operations</td><td class="col-cat">Operations</td></tr>
+      <tr><td class="col-num">13</td><td>GTM Foundations</td><td class="col-cat">Sales</td></tr>
+      <tr><td class="col-num">14</td><td>Product Roadmap</td><td class="col-cat">Product</td></tr>
+      <tr><td class="col-num">15</td><td>Compensation &amp; Equity</td><td class="col-cat">People</td></tr>
+      <tr><td class="col-num">16</td><td>Brand &amp; Content Engine</td><td class="col-cat">Marketing</td></tr>
+      <tr><td class="col-num">17</td><td>Vendor &amp; Procurement</td><td class="col-cat">Operations</td></tr>
+      <tr><td class="col-num">18</td><td>M&amp;A Readiness</td><td class="col-cat">Finance</td></tr>
+    </tbody>
+  </table>
+
+  <div class="pullquote">
+    Vous n'inventez pas <em>la roue</em>. Vous l'adaptez à votre route.
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 07 ========== -->
+<section class="page" id="ch7">
+  <div class="folio"><span>Chapitre 07 — Principes</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Chapitre sept</div>
+    <h2 class="chapter-title">Pourquoi ça <em>tient</em> dans le temps.</h2>
+    <p class="chapter-deck">
+      Huit principes guident la conception d'OpowAI. Ils déterminent ce qu'on accepte et ce qu'on refuse.
+    </p>
+  </header>
+
+  <div class="principes">
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">GitHub-first, local working copy</div>
+        <p class="principe-d">La source de vérité est sur GitHub privé. Zéro perte de données, multi-device gratuit, audit log via git history.</p>
+      </div>
+    </div>
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">Human-in-the-loop systématique</div>
+        <p class="principe-d">Aucune action externe (mail, Notion write, CRM update) sans validation explicite. L'IA propose, vous décidez.</p>
+      </div>
+    </div>
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">Privacy par frontmatter</div>
+        <p class="principe-d">Trois niveaux — founder, comex, public — déclarés explicitement. Opt-in publication, jamais opt-out.</p>
+      </div>
+    </div>
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">Markdown pérenne</div>
+        <p class="principe-d">Si OpowAI disparaît demain, votre vault reste lisible à vie dans n'importe quel éditeur. Pas de vendor lock.</p>
+      </div>
+    </div>
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">Playbooks avant prompts</div>
+        <p class="principe-d">On injecte des playbooks éprouvés, pas des prompts magiques. Reproductibles, auditables, partageables.</p>
+      </div>
+    </div>
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">Évolution par SOPs</div>
+        <p class="principe-d">Chaque process mature devient un SOP Notion canonique. C'est le mécanisme d'apprentissage organisationnel.</p>
+      </div>
+    </div>
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">Distribution multi-tier</div>
+        <p class="principe-d">Founder (Code) → COMEX (Cowork) → Équipe (Notion). Trois niveaux d'accès, trois niveaux d'usage.</p>
+      </div>
+    </div>
+
+    <div class="principe-row">
+      <div>
+        <div class="principe-h">Routing modèle automatique</div>
+        <p class="principe-d">Haiku pour drafts, Sonnet pour analyses, Opus pour stratégie. Pas de débordement de tokens involontaire.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 08 — NEXT ========== -->
+<section class="next" id="ch8">
+  <div class="next-inner">
+    <div class="folio" style="border-color: rgba(245,241,234,0.15);"><span style="color:rgba(245,241,234,0.55);">Chapitre 08 — Et après</span><span style="color:rgba(245,241,234,0.85);"><strong>OpowAI v0.1</strong></span></div>
+
+    <span class="next-label">La suite du voyage</span>
+    <h2 class="next-title">Et si votre prochain<br>recrutement était <em>un système</em> ?</h2>
+    <p>
+      OpowAI v0.1 est en accès anticipé pour quelques fondateurs et COMEX qui veulent <strong>structurer leurs opérations sans embaucher trois équivalents temps plein</strong>. Setup guidé en 30 minutes. 18 playbooks pré-injectés. 24 skills opérationnels. Le système vit avec vous, pas l'inverse.
+    </p>
+    <p>
+      Si vous voulez en discuter — votre situation, vos rituels actuels, ce qui coince aujourd'hui — réservez 30 minutes. Si OpowAI vous correspond, on cale les modalités. Sinon, je vous oriente honnêtement.
+    </p>
+
+    <div class="next-actions">
+      <a href="mailto:florian.guerrier@gmail.com?subject=OpowAI%20-%20Acc%C3%A8s%20anticip%C3%A9" class="btn-primary">Réserver 30 minutes →</a>
+      <a href="mailto:florian.guerrier@gmail.com" class="btn-ghost">Ou écrire un mot</a>
+    </div>
+
+    <p style="margin-top: 3rem; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,241,234,0.5);">
+      Florian Guerrier · Fractional COO · Mai 2026 · v0.1.0
+    </p>
+  </div>
+</section>
+
+</body>
+</html>

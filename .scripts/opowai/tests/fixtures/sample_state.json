@@ -1,0 +1,17 @@
+{
+  "current_phase": "1",
+  "current_thematic": "docs",
+  "completed_thematics": {
+    "crm": "pipedrive",
+    "calendar": "gcal",
+    "email": "gmail"
+  },
+  "skipped_thematics": [],
+  "selected_use_cases": ["pipeline-prep", "coaching-sales", "support-client", "rituels-perso"],
+  "auto_discovery_status": "running",
+  "activated_skills": [],
+  "user_profile": {},
+  "company_profile": {},
+  "started_at": "2026-05-21T10:00:00Z",
+  "last_update": "2026-05-21T10:23:00Z"
+}

@@ -1,0 +1,34 @@
+# OpowAI — User profile (founder)
+# Copy to user-profile.yaml and fill via /setup-opowai
+
+name: ""                    # Prénom Nom
+role: ""                    # Founder / CEO / COO / CPO / CTO / autre
+email: ""
+email_personal: ""          # Pour distinguer perso/pro
+phone: ""
+linkedin_url: ""
+
+preferences:
+  language: "fr"            # fr / en
+  communication:
+    formality: "casual_pro"   # formal / casual_pro / casual
+    directness: "very_direct" # very_direct / balanced / supportive
+  timezone: "Europe/Paris"
+  work_hours:
+    start: "08:30"
+    end: "19:00"
+
+pillars:
+  - name: "Growth"
+    keywords: [acquisition, MRR, churn, marketing, sales, pipeline]
+  - name: "Product"
+    keywords: [feature, roadmap, UX, feedback, beta, dette tech]
+  - name: "Team"
+    keywords: [hire, 1:1, performance, onboarding, comp, dev]
+  - name: "Operations"
+    keywords: [process, tooling, automation, SOP, vendor]
+  - name: "Capital"
+    keywords: [board, investisseur, fundraise, KPI, reporting]
+
+analytics:
+  enabled: true

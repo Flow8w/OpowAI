@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Secrets
+System/.secrets/
+System/*.local.yaml
+.env
+.env.*
+
+# Logs
+System/*.log
+System/.discovery-draft.yaml
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Claude Code local state
+.claude/cache/
+.claude/projects/
+.claude/sessions/
+
+# Node / Python (au cas où)
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+05-Operations/Playbooks/_sources/
+System/.setup-state.json

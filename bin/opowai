@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Wrapper to invoke the OpowAI CLI from anywhere in the repo.
+set -e
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+exec python3 "$REPO_ROOT/.scripts/opowai/cli.py" "$@"

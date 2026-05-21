@@ -1,0 +1,439 @@
+# OpowAI — Skill prerequisites
+# Cerveau de l'activation just-in-time : pour chaque skill, quels outils sont nécessaires
+# Format : required (bloquant) / optional (enrichit mais pas bloquant) / unlocked (sans dépendance)
+#
+# Légende statuts d'activation :
+# ✅ activated   — skill prêt + agent programmé si applicable
+# ⏳ pending     — au moins un required en attente de connexion
+# 🔘 todo        — aucun prérequis connecté
+# 🔒 dormant     — skill non sélectionné par l'utilisateur en phase 0
+
+# ────────────────────────────────────────────────────────────
+# THÉMATIQUES — ordre fixe v0.1 (par valeur pour founder/COMEX)
+# ────────────────────────────────────────────────────────────
+
+thematics:
+  - id: crm
+    order: 1
+    name: "CRM & Sales"
+    description: "Le cœur commercial — pipeline, deals, contacts, deals lost"
+    tools:
+      - { id: pipedrive, name: "Pipedrive", popular: true }
+      - { id: hubspot, name: "HubSpot", popular: true }
+      - { id: salesforce, name: "Salesforce" }
+      - { id: close, name: "Close" }
+      - { id: attio, name: "Attio" }
+      - { id: folk, name: "Folk" }
+      - { id: other, name: "Autre / Mon outil n'est pas listé" }
+    why_matters: "Sans CRM connecté, pas de prep RDV, pas de récap pipeline, pas de board prep."
+
+  - id: email
+    order: 2
+    name: "Email"
+    description: "Ta boîte mail — drafts support, intel contacts, historique"
+    tools:
+      - { id: gmail, name: "Gmail", popular: true }
+      - { id: outlook, name: "Outlook" }
+      - { id: front, name: "Front" }
+      - { id: hey, name: "Hey" }
+      - { id: superhuman, name: "Superhuman" }
+      - { id: other, name: "Autre" }
+    why_matters: "Sans email connecté, pas de drafts support, pas d'enrichissement contacts."
+
+  - id: calendar
+    order: 3
+    name: "Calendar & Scheduling"
+    description: "Ton calendrier — base du daily plan, prep meetings J-1, all-hands schedule"
+    tools:
+      - { id: gcal, name: "Google Calendar", popular: true }
+      - { id: outlook-cal, name: "Outlook Calendar" }
+      - { id: calendly, name: "Calendly", note: "Booking, complémentaire" }
+      - { id: cal-com, name: "Cal.com" }
+      - { id: other, name: "Autre" }
+    why_matters: "Sans calendar, pas de daily plan, pas de prep meeting."
+
+  - id: docs
+    order: 4
+    name: "Knowledge & docs"
+    description: "Ta base documentaire — SOPs, OKRs, all-hands, glossaire interne"
+    tools:
+      - { id: notion, name: "Notion", popular: true }
+      - { id: confluence, name: "Confluence" }
+      - { id: coda, name: "Coda" }
+      - { id: obsidian, name: "Obsidian" }
+      - { id: slite, name: "Slite" }
+      - { id: other, name: "Autre" }
+    why_matters: "Sans Notion (ou équivalent), pas de SOPs canoniques, pas de page all-hands."
+
+  - id: chat
+    order: 5
+    name: "Communication (chat)"
+    description: "Tes canaux async — contexte équipe, vocabulaire interne"
+    tools:
+      - { id: slack, name: "Slack", popular: true }
+      - { id: teams, name: "Microsoft Teams" }
+      - { id: discord, name: "Discord" }
+      - { id: other, name: "Autre" }
+    why_matters: "Sans chat, le coaching sales et les notifications agents perdent un canal clé."
+
+  - id: project
+    order: 6
+    name: "Project & Roadmap"
+    description: "Ta roadmap produit — tickets, sprint, projets en cours / en retard"
+    tools:
+      - { id: linear, name: "Linear", popular: true }
+      - { id: jira, name: "Jira", popular: true }
+      - { id: notion-projects, name: "Notion projects" }
+      - { id: asana, name: "Asana" }
+      - { id: clickup, name: "ClickUp" }
+      - { id: shortcut, name: "Shortcut" }
+      - { id: other, name: "Autre" }
+    why_matters: "Sans project mgmt, pas de section roadmap dans le all-hands."
+
+  - id: analytics
+    order: 7
+    name: "Data & Analytics"
+    description: "Tes chiffres — MRR, churn, acquisition, retention, KPIs all-hands"
+    tools:
+      - { id: posthog, name: "Posthog", popular: true }
+      - { id: amplitude, name: "Amplitude" }
+      - { id: mixpanel, name: "Mixpanel" }
+      - { id: stripe, name: "Stripe", note: "Pour MRR / churn $" }
+      - { id: metabase, name: "Metabase" }
+      - { id: looker, name: "Looker" }
+      - { id: ga4, name: "Google Analytics 4" }
+      - { id: db-custom, name: "Base de données custom (MCP)" }
+      - { id: other, name: "Autre" }
+    why_matters: "Sans data, les KPIs du all-hands sont à remplir à la main."
+
+  - id: transcript
+    order: 8
+    name: "Transcript & meeting recording"
+    description: "Tes transcripts de calls — base du coaching sales et de la capture meeting"
+    tools:
+      - { id: granola, name: "Granola", popular: true }
+      - { id: gong, name: "Gong" }
+      - { id: fireflies, name: "Fireflies" }
+      - { id: otter, name: "Otter.ai" }
+      - { id: tactiq, name: "Tactiq" }
+      - { id: loom, name: "Loom" }
+      - { id: other, name: "Autre" }
+    why_matters: "Sans transcripts, pas de coaching sales automatique, pas d'analyse récurrente des calls."
+
+  - id: code
+    order: 9
+    name: "Code & Dev"
+    description: "Ton repo — pour les founders techniques, mockups depuis design system"
+    optional: true
+    tools:
+      - { id: github, name: "GitHub", popular: true }
+      - { id: gitlab, name: "GitLab" }
+      - { id: bitbucket, name: "Bitbucket" }
+      - { id: other, name: "Autre" }
+    why_matters: "Optionnel. Active la génération de maquettes alignées au design system existant."
+
+  - id: other
+    order: 10
+    name: "Autre — connecteur libre"
+    description: "Un outil interne, un MCP custom, un service spécifique à ta boîte"
+    free_form: true
+    tools: []
+    why_matters: "Pour les boîtes avec des outils niche ou propriétaires."
+
+
+# ────────────────────────────────────────────────────────────
+# SKILLS — mapping vers thématiques requises / optionnelles
+# ────────────────────────────────────────────────────────────
+
+skills:
+
+  # === Rituels personnels (vault-only, débloquent vite) ===
+
+  daily-plan:
+    required: [calendar]
+    optional: [email, project, chat]
+    unlock_message: "📅 Plan de journée matinal activé"
+    category: "Rituels quotidiens"
+    schedule: "Mon-Fri 08:00"
+
+  daily-review:
+    required: []
+    optional: []
+    unlock_message: "🌙 Revue de fin de journée activée"
+    category: "Rituels quotidiens"
+
+  week-plan:
+    required: [calendar]
+    optional: [crm, project]
+    unlock_message: "📆 Planification hebdo activée"
+    category: "Rituels hebdo"
+
+  week-review:
+    required: []
+    optional: []
+    unlock_message: "🔁 Revue hebdo activée"
+    category: "Rituels hebdo"
+
+  meeting-prep:
+    required: [calendar]
+    optional: [crm, email]
+    unlock_message: "🤝 Prep meeting J-1 activé"
+    category: "Rituels quotidiens"
+
+  process-meetings:
+    required: []
+    optional: [transcript]
+    unlock_message: "📝 Traitement automatique des meetings activé"
+    category: "Rituels quotidiens"
+
+  triage:
+    required: [email]
+    optional: [chat]
+    unlock_message: "📥 Tri inbox + extraction tâches activé"
+    category: "Rituels quotidiens"
+
+  # === Vente & pipeline (use cases le client prioritaires) ===
+
+  friday-close:
+    required: [crm, calendar]
+    optional: [chat, email]
+    unlock_message: "🎯 Rituel vendredi 16h activé (récap RDV passés + prep semaine suivante)"
+    category: "Sales & pipeline"
+    schedule: "Fri 16:00"
+
+  coach-sales-self:
+    required: [crm]
+    optional: [transcript]
+    unlock_message: "🎓 Auto-coaching de tes calls activé"
+    category: "Sales & pipeline"
+    schedule: "Fri 15:30"
+
+  coach-team-member:
+    required: [crm, transcript]
+    optional: [chat]
+    unlock_message: "👥 Coaching équipe basé transcripts activé"
+    category: "Sales & pipeline"
+
+  pipeline-monitor:
+    required: [crm]
+    optional: []
+    unlock_message: "📈 Monitoring pipeline + alertes drift activé"
+    category: "Sales & pipeline"
+    schedule: "Mon 09:00"
+
+  prep-meeting:
+    required: [calendar, crm]
+    optional: [email]
+    unlock_message: "🤝 Prep meeting externe enrichi activé"
+    category: "Sales & pipeline"
+
+  # === Support client ===
+
+  draft-support-reply:
+    required: [email]
+    optional: [docs]
+    unlock_message: "💬 Brouillons mail support activés (batch ou ticket par ticket)"
+    category: "Support client"
+    schedule: "Mon-Fri 09:00, 14:00"
+
+  # === Communication interne ===
+
+  all-hands:
+    required: [docs]
+    optional: [crm, analytics, project]
+    unlock_message: "🏢 Prep all-hands mensuel automatique"
+    category: "Communication interne"
+    schedule: "Last Fri of month 14:00"
+
+  sync-cowork:
+    required: []
+    optional: [docs]
+    unlock_message: "🔄 Sync hebdo vers Cowork activée"
+    category: "Communication interne"
+    schedule: "Sun 22:00"
+
+  context-cards:
+    required: []
+    optional: [docs, crm]
+    unlock_message: "🃏 Context Cards modulaires pour Cowork générées"
+    category: "Communication interne"
+
+  publish-sop:
+    required: [docs]
+    optional: []
+    unlock_message: "📚 Page racine 'OpowAI SOPs' créée sur Notion"
+    category: "Knowledge management"
+
+  # === Stratégie / Board / Capital ===
+
+  board-prep:
+    required: [crm]
+    optional: [analytics, project, docs]
+    unlock_message: "🎩 Prep board meeting activée"
+    category: "Stratégie & capital"
+
+  exec-summary:
+    required: [crm]
+    optional: [analytics]
+    unlock_message: "📊 Synthèse exec hebdo investisseurs"
+    category: "Stratégie & capital"
+    schedule: "Fri 17:00"
+
+  fundraising-tracker:
+    required: []
+    optional: [email, calendar]
+    unlock_message: "💰 Pipeline investisseurs (private: founder) activé"
+    category: "Stratégie & capital"
+
+  quarter-plan:
+    required: []
+    optional: []
+    unlock_message: "🎯 Cadre quarterly activé"
+    category: "Rituels trimestriels"
+
+  quarter-review:
+    required: []
+    optional: [crm, analytics]
+    unlock_message: "🔍 Revue trimestrielle activée"
+    category: "Rituels trimestriels"
+
+  # === Produit ===
+
+  roadmap-sync:
+    required: [project]
+    optional: [docs]
+    unlock_message: "🛠️ Sync roadmap (Jira/Linear → Notion) activée"
+    category: "Produit"
+    schedule: "Mon 09:00"
+
+  spec-audit:
+    required: [docs]
+    optional: [project]
+    unlock_message: "🔎 Audit de specs activé (lit, détecte ambiguïtés, génère brief devs)"
+    category: "Produit"
+
+  mockup-from-repo:
+    required: [code]
+    optional: []
+    unlock_message: "🎨 Génération de maquettes depuis le design system activée"
+    category: "Produit"
+
+  # === Intelligence externe ===
+
+  people-intel:
+    required: [email]
+    optional: [code]  # GitHub pour scrape profils dev
+    unlock_message: "🔍 Enrichissement automatique des contacts externes activé"
+    category: "Intelligence"
+
+  competitor-watch:
+    required: []
+    optional: []
+    unlock_message: "👀 Veille concurrentielle hebdo activée"
+    category: "Intelligence"
+    schedule: "Mon 08:00"
+
+  # === Maintenance système ===
+
+  drift-detection:
+    required: []
+    optional: []
+    unlock_message: "⚠️ Détection des dérives hebdo activée"
+    category: "Maintenance"
+    schedule: "Fri 17:00"
+
+  opowai-status:
+    required: []
+    optional: []
+    unlock_message: "📊 Commande de statut OpowAI disponible"
+    category: "Maintenance"
+
+  operating-rhythm-audit:
+    required: []
+    optional: [calendar, project, crm]
+    unlock_message: "🧪 Skill d'audit opérationnel disponible"
+    category: "Advisory"
+
+  health-score-builder:
+    required: []
+    optional: [crm, analytics]
+    unlock_message: "❤️ Workshop health score client disponible"
+    category: "Advisory"
+
+
+# ────────────────────────────────────────────────────────────
+# USE CASES — prioritisés en phase 0
+# ────────────────────────────────────────────────────────────
+
+use_cases:
+  - id: pipeline-prep
+    name: "Pilotage du pipeline & prep RDV (rituel vendredi 16h)"
+    skills: [friday-close, prep-meeting, pipeline-monitor]
+    minimum_thematics: [crm, calendar]
+    recommended_thematics: [email, chat]
+
+  - id: coaching-sales
+    name: "Coaching sales (toi + équipe)"
+    skills: [coach-sales-self, coach-team-member]
+    minimum_thematics: [crm]
+    recommended_thematics: [transcript, chat]
+
+  - id: support-client
+    name: "Drafts support client automatisés"
+    skills: [draft-support-reply]
+    minimum_thematics: [email]
+    recommended_thematics: [docs]
+
+  - id: all-hands
+    name: "Prep all-hands mensuel"
+    skills: [all-hands, publish-sop, sync-cowork]
+    minimum_thematics: [docs]
+    recommended_thematics: [crm, analytics, project]
+
+  - id: roadmap-produit
+    name: "Roadmap produit, specs & maquettes"
+    skills: [roadmap-sync, spec-audit, mockup-from-repo]
+    minimum_thematics: [project]
+    recommended_thematics: [docs, code]
+
+  - id: rituels-perso
+    name: "Pilotage perso (daily, weekly, quarterly)"
+    skills: [daily-plan, daily-review, week-plan, week-review, meeting-prep, process-meetings, triage, quarter-plan, quarter-review]
+    minimum_thematics: [calendar]
+    recommended_thematics: [email, project, chat]
+
+  - id: board-fundraising
+    name: "Board, exec summary, fundraising"
+    skills: [board-prep, exec-summary, fundraising-tracker]
+    minimum_thematics: [crm]
+    recommended_thematics: [analytics, docs]
+
+  - id: intelligence-externe
+    name: "Prep contacts externes (meetings, prospects, investisseurs)"
+    skills: [people-intel, prep-meeting, competitor-watch]
+    minimum_thematics: [email]
+    recommended_thematics: [calendar, crm]
+
+  - id: knowledge-management
+    name: "SOPs partagés, contexte COMEX synchronisé"
+    skills: [publish-sop, sync-cowork, context-cards, drift-detection]
+    minimum_thematics: [docs]
+    recommended_thematics: [chat]
+
+  - id: advisory
+    name: "Diagnostic ops (pour ta boîte ou pour conseiller)"
+    skills: [operating-rhythm-audit, health-score-builder, drift-detection]
+    minimum_thematics: []
+    recommended_thematics: [crm, calendar, project]
+
+
+# ────────────────────────────────────────────────────────────
+# NOTIFICATION SYMBOLS — utilisés partout
+# ────────────────────────────────────────────────────────────
+
+symbols:
+  activated: "✅"   # tout prêt, skill actif
+  pending:   "⏳"   # au moins un required en attente
+  todo:      "🔘"   # rien n'est connecté
+  dormant:   "🔒"   # skill non sélectionné par l'utilisateur en phase 0
+  in_progress: "🔵" # action en cours (connexion outil, scan…)

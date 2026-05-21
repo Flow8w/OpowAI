@@ -1,0 +1,55 @@
+# OpowAI — Company profile
+# Filled via /setup-opowai
+
+name: ""
+domain: ""                  # email domain (e.g. sowhat.ai)
+website: ""
+sector: ""                  # SaaS B2B / Marketplace / Services / etc.
+stage: ""                   # Pre-seed / Seed / Series A / Series B / etc.
+founded: ""                 # YYYY
+
+team:
+  size: 0                   # nombre total
+  comex_size: 0
+  engineering: 0
+  sales: 0
+  marketing: 0
+  cs: 0
+  ops: 0
+
+financials:
+  arr_eur: 0                # ARR en euros
+  mrr_eur: 0
+  burn_rate_eur: 0          # mensuel
+  runway_months: 0
+  cash_eur: 0
+
+comex:
+  # Auto-rempli par /setup-opowai depuis email signatures + calendrier
+  - name: ""
+    role: ""
+    email: ""
+
+icp:
+  segments: []              # liste de segments (ex: "Mid-market SaaS 50-500p")
+  buyer_personas: []        # liste de personas
+  champion_personas: []
+
+stack:
+  crm: ""                   # HubSpot / Pipedrive / Close
+  project_mgmt: ""          # Linear / Jira / Notion
+  doc: ""                   # Notion / Confluence
+  comms: ""                 # Slack / Teams
+  analytics: ""             # Posthog / Amplitude / Mixpanel
+  billing: ""               # Stripe / Chargebee
+
+integrations:
+  notion_root_page_id: ""   # ID de la page racine "📚 OpowAI SOPs"
+  cowork_project_id: ""     # ID du projet Claude Cowork "Company Context"
+  slack_workspace_id: ""
+
+cadence:
+  daily_standup: ""         # "09:00" ou "none"
+  weekly_comex: ""          # "Monday 10:00"
+  monthly_all_hands: ""     # "Last Friday 15:00"
+  quarterly_board: ""       # cron-like "First Wednesday of March, June, Sept, Dec"

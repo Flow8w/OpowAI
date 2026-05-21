@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OpowAI v0.1 — Quick Start &amp; Référence</title>
+<meta name="description" content="Tout ce qu'il faut savoir pour démarrer OpowAI en 2 commandes, et l'utiliser au quotidien." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Inter+Tight:wght@300;400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23CC5B2E'/%3E%3Cstop offset='.5' stop-color='%23B8A6CC'/%3E%3Cstop offset='1' stop-color='%2394B8A8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%23121113'/%3E%3Ccircle cx='32' cy='32' r='14' fill='url(%23g)'/%3E%3C/svg%3E" type="image/svg+xml" />
+
+<style>
+  :root {
+    --bg:            #F5F1EA;
+    --bg-paper:      #FBF8F2;
+    --bg-card:       #FFFFFF;
+    --bg-dark:       #121113;
+    --bg-peach:      #F5E1D5;
+    --bg-warn:       #FBEDD4;
+    --text:          #121113;
+    --text-muted:    #3F3E42;
+    --text-light:    #7A7770;
+    --accent:        #CC5B2E;
+    --rule:          rgba(18, 17, 19, 0.10);
+    --rule-strong:   rgba(18, 17, 19, 0.25);
+    --serif:         "Fraunces", "Times New Roman", Georgia, serif;
+    --sans:          "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:          "JetBrains Mono", ui-monospace, monospace;
+    --grad-ai: linear-gradient(135deg, #CC5B2E 0%, #E8997B 22%, #F5C97B 45%, #B8A6CC 72%, #94B8A8 100%);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15.5px;
+    line-height: 1.65;
+    letter-spacing: -0.003em;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(204,91,46,0.3); }
+  a:hover { border-bottom-color: var(--accent); }
+  p { margin: 0 0 1em; }
+  ul, ol { margin: 0 0 1em; padding-left: 1.2em; }
+  li { margin-bottom: 0.4em; }
+  strong { font-weight: 500; color: var(--text); }
+  code, kbd {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--bg-peach);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    background: var(--bg-dark);
+    color: var(--bg);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--bg-paper);
+    padding: 5rem 5.5rem;
+    box-shadow: 0 4px 24px rgba(18,17,19,0.04);
+  }
+  .page + .page { margin-top: 2rem; }
+  @media (max-width: 720px) { .page { padding: 3rem 1.5rem; } }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4rem 5.5rem;
+    background: var(--bg-paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    width: 70%;
+    height: 80%;
+    background: var(--grad-ai);
+    opacity: 0.18;
+    filter: blur(80px);
+    border-radius: 50%;
+  }
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    position: relative;
+    z-index: 1;
+  }
+  .cover-mark {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .cover-mark::after {
+    content: "";
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--grad-ai);
+  }
+  .cover-main { position: relative; z-index: 1; max-width: 28ch; }
+  .cover-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+  .cover-title {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin: 0 0 2rem;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+  }
+  .cover-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 80;
+  }
+  .cover-subtitle {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 36ch;
+  }
+  .cover-foot {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+  }
+  .cover-foot strong { color: var(--text); font-weight: 500; }
+
+  /* TOC */
+  .toc-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    display: block;
+  }
+  .toc-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 2.6rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 3.5rem;
+  }
+  .toc-title em { font-style: italic; color: var(--accent); }
+  .toc ol { list-style: none; padding: 0; margin: 0; }
+  .toc li {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .toc li:last-child { border-bottom: 1px solid var(--rule); }
+  .toc-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 350;
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+  .toc-link {
+    font-size: 1.05rem;
+    font-weight: 450;
+    color: var(--text);
+    border-bottom: none;
+  }
+  .toc-link:hover { color: var(--accent); }
+  .toc-page {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--text-light);
+  }
+
+  /* CHAPTER */
+  .chapter-head {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .chapter-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .chapter-num::before {
+    content: "";
+    width: 32px;
+    height: 2px;
+    background: var(--grad-ai);
+    border-radius: 1px;
+  }
+  .chapter-title {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+  .chapter-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 70;
+  }
+  .chapter-deck {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    margin: 2.5rem 0 0.75rem;
+  }
+  h4 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 1.75rem 0 0.4rem;
+  }
+
+  /* QUICK START — big numbered command blocks */
+  .qs {
+    margin: 2rem 0;
+    list-style: none;
+    padding: 0;
+    counter-reset: qs;
+  }
+  .qs li {
+    counter-increment: qs;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .qs li:last-child { border-bottom: 1px solid var(--rule); }
+  .qs li::before {
+    content: counter(qs);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 3.5rem;
+    color: var(--accent);
+    line-height: 0.9;
+    font-weight: 350;
+  }
+  .qs-h {
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .qs-d {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+  }
+  .qs pre {
+    margin: 0.75rem 0;
+  }
+
+  /* CALLOUTS */
+  .callout {
+    position: relative;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+    background: var(--bg-card);
+    border-radius: 10px;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: var(--grad-ai);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+  .callout-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout-warn {
+    background: var(--bg-warn);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+  }
+  .callout-warn-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8B5A1A;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  /* TABLE */
+  .table-doc {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 14px;
+  }
+  .table-doc th, .table-doc td {
+    text-align: left;
+    padding: 0.7rem 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .table-doc th {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  /* PULL */
+  .pullquote {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-style: italic;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 3rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid;
+    border-image: var(--grad-ai) 1;
+    max-width: 32ch;
+    font-variation-settings: "opsz" 96;
+  }
+  .pullquote em { color: var(--accent); }
+
+  /* FOLIO */
+  .folio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .folio strong { color: var(--text); font-weight: 500; }
+
+  .next {
+    background: var(--bg-dark);
+    color: var(--bg);
+    padding: 4rem 5.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .next::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--grad-ai);
+    opacity: 0.12;
+  }
+  .next-inner { position: relative; z-index: 1; }
+  .next-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .next-title {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.05;
+    color: var(--bg);
+    margin: 0 0 1.5rem;
+    max-width: 22ch;
+  }
+  .next-title em { font-style: italic; color: var(--accent); }
+  .next p { color: rgba(245,241,234,0.78); max-width: 40rem; font-size: 1rem; line-height: 1.6; }
+  .next p strong { color: var(--bg); }
+
+  .pdf-note {
+    background: var(--bg-dark);
+    color: var(--bg);
+    padding: 8px 20px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .pdf-note strong { color: var(--accent); }
+
+  @media print {
+    body { background: white; }
+    .pdf-note { display: none; }
+    .page, .cover, .next {
+      box-shadow: none;
+      margin: 0;
+      padding: 2.5cm 2cm;
+      max-width: none;
+      page-break-after: always;
+    }
+    .next { page-break-after: avoid; }
+    .cover { min-height: auto; }
+    h3, .chapter-head, .qs li, .pullquote, .callout, .callout-warn, .table-doc { page-break-inside: avoid; }
+    a { color: var(--text); border-bottom: none; }
+    pre { background: #F0EBE2; color: var(--text); border: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body>
+
+<div class="pdf-note">
+  Quick Start &amp; Référence v0.1 · <strong>OpowAI</strong> · Ctrl+P pour PDF imprimable
+</div>
+
+<!-- ========== COVER ========== -->
+<section class="cover">
+  <div class="cover-top">
+    <span>OpowAI · v0.1.0</span>
+    <div class="cover-mark"></div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-eyebrow">Quick Start &amp; Référence · Mai 2026</div>
+    <h1 class="cover-title">
+      Deux commandes.<br>
+      Le reste,<br>
+      <em>dans le chat</em>.
+    </h1>
+    <p class="cover-subtitle">
+      OpowAI s'installe via 2 lignes de terminal. Tout le reste — connexion outils, paramétrage, premier run — se passe en conversation avec Claude.
+    </p>
+  </div>
+
+  <div class="cover-foot">
+    <span><strong>Florian Guerrier</strong> · Fractional COO</span>
+    <span>Pour fondateurs &amp; COMEX</span>
+  </div>
+</section>
+
+<!-- ========== TOC ========== -->
+<section class="page">
+  <span class="toc-label">Sommaire</span>
+  <h2 class="toc-title">Cinq chapitres,<br><em>cinq besoins</em>.</h2>
+
+  <nav class="toc">
+    <ol>
+      <li><span class="toc-num">01</span><a class="toc-link" href="#ch1">Quick Start — démarrer en 2 commandes</a><span class="toc-page">p. 03</span></li>
+      <li><span class="toc-num">02</span><a class="toc-link" href="#ch2">Ce qui va se passer dans le chat</a><span class="toc-page">p. 05</span></li>
+      <li><span class="toc-num">03</span><a class="toc-link" href="#ch3">Au quotidien — comment tu l'utilises</a><span class="toc-page">p. 07</span></li>
+      <li><span class="toc-num">04</span><a class="toc-link" href="#ch4">Mises à jour via GitHub</a><span class="toc-page">p. 09</span></li>
+      <li><span class="toc-num">05</span><a class="toc-link" href="#ch5">Dépannage</a><span class="toc-page">p. 11</span></li>
+    </ol>
+  </nav>
+</section>
+
+<!-- ========== CHAPITRE 01 — QUICK START ========== -->
+<section class="page" id="ch1">
+  <div class="folio"><span>Chapitre 01 — Quick Start</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Quick Start</div>
+    <h2 class="chapter-title">Démarrer en<br><em>deux commandes</em>.</h2>
+    <p class="chapter-deck">
+      C'est tout ce qu'il y a à faire dans le terminal. Le reste, Claude le fait pour toi.
+    </p>
+  </header>
+
+  <ol class="qs">
+    <li>
+      <div>
+        <div class="qs-h">Cloner OpowAI et installer</div>
+        <p class="qs-d">Ouvre un terminal et colle ces deux lignes :</p>
+<pre><code>git clone https://github.com/Flow8w/OpowAI.git ~/opowai
+cd ~/opowai &amp;&amp; bash install.sh</code></pre>
+        <p class="qs-d">
+          Le script <code>install.sh</code> détecte tes prérequis, crée un virtualenv Python, installe les dépendances, configure les permissions. <strong>Aucune intervention de ta part pendant l'install.</strong>
+        </p>
+      </div>
+    </li>
+
+    <li>
+      <div>
+        <div class="qs-h">Lancer Claude Code et démarrer le setup</div>
+        <p class="qs-d">Toujours dans le dossier <code>~/opowai</code> :</p>
+<pre><code>claude
+# Une fois dans Claude Code, tape :
+/setup-opowai</code></pre>
+        <p class="qs-d">
+          Claude prend le relais. Il vérifie ton environnement, te pose 2-3 questions de priorisation, t'accompagne pour connecter tes outils (Pipedrive, Notion, Gmail…), scanne ton contexte en arrière-plan et active progressivement les skills.
+        </p>
+      </div>
+    </li>
+  </ol>
+
+  <div class="callout">
+    <span class="callout-label">Prérequis (vérifiés automatiquement par <code>install.sh</code>)</span>
+    <p>
+      <strong>Python 3.11+</strong> · <strong>Git</strong> · <strong>Claude Code CLI</strong> (depuis <a href="https://claude.com/code">claude.com/code</a>) · <strong>Abonnement Claude Max 5x minimum</strong> (Pro à 20 €/mois sature en 30 min de setup).
+    </p>
+  </div>
+
+  <div class="callout-warn">
+    <span class="callout-warn-label">Repo privé</span>
+    Tu dois être ajouté comme collaborateur sur <code>Flow8w/OpowAI</code> pour cloner. Si <code>git clone</code> échoue : demande l'accès à Florian, puis configure ton PAT GitHub.
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 02 — DANS LE CHAT ========== -->
+<section class="page" id="ch2">
+  <div class="folio"><span>Chapitre 02 — Dans le chat</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Ce qui se passe ensuite</div>
+    <h2 class="chapter-title">Tout dans la<br><em>conversation</em>.</h2>
+    <p class="chapter-deck">
+      Une fois <code>/setup-opowai</code> lancé, Claude orchestre tout. Voici les 6 moments où il te demande quelque chose.
+    </p>
+  </header>
+
+  <table class="table-doc">
+    <thead><tr><th>Moment</th><th>Ce que Claude fait</th><th>Ce que tu fais</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Diagnostic</strong></td>
+        <td>Vérifie ton env (Python, git, MCPs déjà configurés)</td>
+        <td>Tu valides les corrections qu'il propose</td>
+      </tr>
+      <tr>
+        <td><strong>Priorisation</strong></td>
+        <td>Te présente 10 cas d'usage</td>
+        <td>Tu coches ≥ 3 prioritaires</td>
+      </tr>
+      <tr>
+        <td><strong>Connexion outils</strong></td>
+        <td>Te guide par thématique (CRM, Email, Calendar…) avec name-dropping</td>
+        <td>Tu choisis ton outil principal, tu autorises dans le navigateur</td>
+      </tr>
+      <tr>
+        <td><strong>Auto-discovery</strong></td>
+        <td>Scanne tes outils, extrait équipe, ICP, glossaire, rituels</td>
+        <td>Rien — passif, en parallèle</td>
+      </tr>
+      <tr>
+        <td><strong>Confirmation</strong></td>
+        <td>Te présente ton profil pré-rempli</td>
+        <td>Tu valides ou tu corriges</td>
+      </tr>
+      <tr>
+        <td><strong>Premier run</strong></td>
+        <td>Crée page Notion SOPs, programme les agents, lance <code>/daily-plan</code></td>
+        <td>Tu observes 🍿</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <span class="callout-label">Ce que tu verras dans le chat à chaque connexion</span>
+<pre style="margin: 0.75rem 0 0;"><code>✅ Pipedrive connecté.
+
+🎉 Ce que ça débloque :
+  ✅ /pipeline-monitor   activé
+  ✅ /board-prep         activé
+  ⏳ /friday-close       attend Calendar
+  ⏳ /prep-meeting       attend Calendar
+
+💡 Prochaine étape recommandée : connecter Calendar.</code></pre>
+  </div>
+
+  <h3>La checklist visible en permanence</h3>
+  <p>
+    Pendant tout le setup, ouvre <code>System/setup-checklist.md</code> dans ton éditeur. Il se met à jour en temps réel — tu vois l'avancement %, les thématiques connectées, les skills débloqués, les agents programmés.
+  </p>
+
+  <h3>Tu peux quitter et reprendre</h3>
+  <p>
+    À n'importe quel moment, tu peux quitter Claude Code. La prochaine fois que tu lances <code>/setup-opowai</code>, il te demande :
+  </p>
+<pre><code>👋 Bon retour ! Tu en étais en Phase 1 (3/10 thématiques connectées).
+Tape `continue` pour reprendre, `restart` pour repartir de zéro.</code></pre>
+
+  <div class="pullquote">
+    Tu corriges. Tu n'écris <em>pas</em>.
+  </div>
+
+  <h3>Si tu veux voir où tu en es à tout moment</h3>
+<pre><code>/opowai-status</code></pre>
+  <p>
+    Affiche un dashboard complet : thématiques connectées, skills par catégorie (activés / en attente / dormants), agents récurrents programmés, prochaines exécutions, suggestions intelligentes.
+  </p>
+</section>
+
+<!-- ========== CHAPITRE 03 — AU QUOTIDIEN ========== -->
+<section class="page" id="ch3">
+  <div class="folio"><span>Chapitre 03 — Au quotidien</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Au quotidien</div>
+    <h2 class="chapter-title">Trois rythmes,<br><em>trente skills</em>.</h2>
+    <p class="chapter-deck">
+      Daily, weekly, monthly. Chaque rythme a ses skills à la demande et ses agents qui tournent automatiquement.
+    </p>
+  </header>
+
+  <h3>Au quotidien</h3>
+
+  <table class="table-doc">
+    <thead><tr><th>Quand</th><th>Skill</th><th>Ce que ça fait</th></tr></thead>
+    <tbody>
+      <tr><td>Matin</td><td><code>/daily-plan</code> 🤖</td><td>Plan structuré (calendrier, tâches, priorités)</td></tr>
+      <tr><td>Avant meeting</td><td><code>/meeting-prep</code></td><td>Prep avec contexte attendees</td></tr>
+      <tr><td>Après meeting</td><td><code>/process-meetings</code></td><td>Transcripts → tasks, people, projets</td></tr>
+      <tr><td>Au besoin</td><td><code>/triage</code></td><td>Tri inbox + extraction tâches</td></tr>
+      <tr><td>Soir</td><td><code>/daily-review</code></td><td>Revue + capture des learnings</td></tr>
+    </tbody>
+  </table>
+
+  <h3>À la semaine</h3>
+
+  <table class="table-doc">
+    <thead><tr><th>Quand</th><th>Skill</th><th>Ce que ça fait</th></tr></thead>
+    <tbody>
+      <tr><td>Lundi matin</td><td><code>/week-plan</code></td><td>Planification semaine + suggestions</td></tr>
+      <tr><td><strong>Vendredi 16h</strong></td><td><code>/friday-close</code> 🤖</td><td>Récap RDV passés + prep RDV semaine suivante</td></tr>
+      <tr><td>Vendredi 17h</td><td><code>/drift-detection</code> 🤖</td><td>Alertes OKR / projets stale</td></tr>
+      <tr><td>Vendredi 17h</td><td><code>/exec-summary</code> 🤖</td><td>Synthèse exec investisseurs</td></tr>
+      <tr><td>Dimanche 22h</td><td><code>/sync-cowork</code> 🤖</td><td>Pousse contexte vers Cowork</td></tr>
+      <tr><td>Au besoin</td><td><code>/week-review</code></td><td>Revue hebdo, pattern detection</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Au mois &amp; au trimestre</h3>
+
+  <table class="table-doc">
+    <thead><tr><th>Quand</th><th>Skill</th><th>Ce que ça fait</th></tr></thead>
+    <tbody>
+      <tr><td>Dernier vendredi du mois</td><td><code>/all-hands</code> 🤖</td><td>Draft all-hands prêt à relire</td></tr>
+      <tr><td>Quand un process mûrit</td><td><code>/publish-sop</code></td><td>SOP Notion canonique</td></tr>
+      <tr><td>Début trimestre</td><td><code>/quarter-plan</code></td><td>3-5 objectifs stratégiques</td></tr>
+      <tr><td>Fin trimestre</td><td><code>/quarter-review</code></td><td>Revue, learnings, ajustements</td></tr>
+      <tr><td>Avant board</td><td><code>/board-prep</code></td><td>KPIs, narrative, Q&amp;A</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <span class="callout-label">Le symbole 🤖</span>
+    <p>Indique un <strong>agent récurrent</strong> — il tourne automatiquement aux horaires programmés. Pour les autres skills, tu les lances quand tu en as besoin via Claude Code.</p>
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 04 — UPDATES ========== -->
+<section class="page" id="ch4">
+  <div class="folio"><span>Chapitre 04 — Mises à jour</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Mises à jour</div>
+    <h2 class="chapter-title">Pousser &amp; tirer<br>depuis <em>GitHub</em>.</h2>
+    <p class="chapter-deck">
+      OpowAI vit sur GitHub. Tes modifications sont sauvegardées en continu, et les nouvelles versions du système te parviennent en une commande.
+    </p>
+  </header>
+
+  <h3>Tes modifications — auto-sync transparent</h3>
+  <p>
+    À chaque action significative dans ton vault, un hook commit + push automatiquement. Tu ne touches jamais à git. Mais si tu veux vérifier :
+  </p>
+<pre><code>cd ~/opowai
+git log --oneline -10      # 10 derniers commits
+git status                 # état actuel</code></pre>
+
+  <h3>Récupérer les nouvelles versions (v0.2, v0.3…)</h3>
+  <p>
+    Quand une nouvelle version d'OpowAI est publiée, demande à Claude :
+  </p>
+<pre><code>/opowai-update</code></pre>
+  <p>
+    Il fait le <code>git fetch upstream</code>, regarde les nouveautés, te résume ce qui change (nouveaux skills, nouveaux playbooks, fixes), te demande confirmation, puis merge. Tes données personnelles ne sont jamais touchées.
+  </p>
+
+  <div class="callout">
+    <span class="callout-label">Ce qui est partagé vs ce qui reste privé</span>
+    <p>
+      <strong>Partagé (vient de l'upstream)</strong> : structure de dossiers, code Python, SKILL.md, playbooks anonymisés.<br>
+      <strong>Privé (toi seul)</strong> : meeting notes, person pages, projets, OKRs, profil, état du setup. Tout ça est dans ton repo privé, et explicitement gitignored vis-à-vis de l'upstream.
+    </p>
+  </div>
+
+  <h3>Travailler depuis plusieurs machines</h3>
+  <p>
+    Tu peux cloner ton repo privé sur n'importe quel device. Au lancement de Claude Code, git pull automatique → tu retrouves exactement où tu en étais.
+  </p>
+
+  <div class="pullquote">
+    Aucune migration manuelle. Le repo <em>est</em> le système.
+  </div>
+</section>
+
+<!-- ========== CHAPITRE 05 — DÉPANNAGE ========== -->
+<section class="page" id="ch5">
+  <div class="folio"><span>Chapitre 05 — Dépannage</span><span><strong>OpowAI v0.1</strong></span></div>
+
+  <header class="chapter-head">
+    <div class="chapter-num">Dépannage</div>
+    <h2 class="chapter-title">Quand ça <em>coince</em>.</h2>
+    <p class="chapter-deck">
+      Les 6 cas qu'on a vus en bêta, et comment les régler en moins d'une minute.
+    </p>
+  </header>
+
+  <h3>« Je sature en tokens »</h3>
+  <p>
+    Tu es probablement sur Pro (20 €/mois). Passe sur <strong>Max 5x (100 €/mois)</strong>. Si tu satures Max 5x aussi, monte à Max 20x.
+  </p>
+
+  <h3>« <code>install.sh</code> échoue »</h3>
+  <p>
+    Vérifie d'abord que tu as Python 3.11+ et Git. Si oui, regarde le message d'erreur. Le script <code>install.sh</code> est verbeux par design — il te dit où ça coince. Si Python est trop ancien, mets-le à jour depuis <a href="https://www.python.org/downloads/">python.org</a>.
+  </p>
+
+  <h3>« <code>/setup-opowai</code> ne reprend pas où je l'avais laissé »</h3>
+  <p>
+    Tape <code>/setup-opowai --resume</code>. Si ça ne marche pas, regarde <code>System/.setup-state.json</code> — s'il existe, le state est récupérable.
+  </p>
+
+  <h3>« Un skill devrait être activé mais ne l'est pas »</h3>
+  <p>
+    Tape <code>/opowai-status</code>. Le skill apparaît en <code>⏳ pending</code> ? Il manque un outil — la colonne "attend" te dit lequel. Connecte-le via <code>/setup-opowai --redo [thematic]</code>.
+  </p>
+
+  <h3>« Un agent récurrent ne se déclenche pas »</h3>
+  <p>
+    Demande à Claude : <em>"Vérifie mes agents OpowAI programmés"</em>. Il regardera <code>crontab -l</code> et te dira si le cron est bien installé. Sinon, il te propose <code>./bin/opowai install-cron</code>.
+  </p>
+
+  <h3>« Comment je donne du feedback ? »</h3>
+  <p>
+    Écris à <a href="mailto:florian.guerrier@gmail.com">florian.guerrier@gmail.com</a> ou ouvre une issue GitHub sur le repo upstream. Les retours alimentent la v0.2.
+  </p>
+
+  <div class="callout">
+    <span class="callout-label">Reset complet</span>
+    <p>
+      Tu peux toujours faire un <code>git reset --hard origin/main</code> pour revenir à la dernière version stable, ou supprimer le dossier et recloner. Tes données réelles (vault) sont dans le repo — pas dans le code.
+    </p>
+  </div>
+</section>
+
+<!-- ========== END ========== -->
+<section class="next">
+  <div class="next-inner">
+    <div class="folio" style="border-color: rgba(245,241,234,0.15);"><span style="color:rgba(245,241,234,0.55);">Fin du manuel</span><span style="color:rgba(245,241,234,0.85);"><strong>OpowAI v0.1</strong></span></div>
+
+    <span class="next-label">Tu es prêt</span>
+    <h2 class="next-title">Lance les <em>deux commandes</em>.<br>Démarre.</h2>
+    <p>
+      Tu peux quitter et reprendre à tout moment. Le système retient où tu en étais. <strong>30 minutes pour rendre opérationnel</strong> ce qui prendrait trois recrutements à structurer.
+    </p>
+    <p>
+      Si tu coinces, garde ce manuel à côté. Si tu coinces malgré ce manuel, écris-moi.
+    </p>
+
+    <p style="margin-top: 3rem; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,241,234,0.5);">
+      Florian Guerrier · Mai 2026 · OpowAI v0.1.0
+    </p>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+# OpowAI — Privacy rules
+# Détermine quels dossiers/fichiers sont accessibles à quelle surface
+# 3 niveaux : founder (Code only) / comex (Code + Cowork) / public (tout + Notion SOPs)
+
+defaults:
+  # Si pas de frontmatter `private:` explicite, applique ces règles selon le path
+
+  founder_only:
+    - "04-Projects/Private/**"
+    - "01-Strategy/Fundraising/**"
+    - "03-People/Board_Investors/**"
+    - "06-Meetings/Board/**"
+    - "System/.discovery-draft.yaml"
+    - "System/.secrets/**"
+
+  comex:
+    - "06-Meetings/COMEX/**"
+    - "01-Strategy/OKRs_*.md"
+    - "01-Strategy/Pricing_Model.md"
+    - "08-Coaching/**"        # coaching équipe — sensible mais COMEX
+
+  public:                     # défaut implicite, tout le reste
+    - "02-Company/**"
+    - "05-Operations/SOPs/**"
+    - "05-Operations/Playbooks/**"
+    - "09-Resources/**"
+    - "03-People/Internal/**" # équipe — partagé COMEX (privacy: comex par défaut sur ces fichiers possible)
+
+# Override via frontmatter
+# Si un fichier a `private: founder` dans son frontmatter, ça override la règle dossier
+# Inverse aussi : un fichier dans `04-Projects/Private/` peut avoir `private: false` (rare, mais possible)
+
+frontmatter_precedence: true
+
+# Logging
+log_filtered_files: true       # log dans System/privacy-filter.log à chaque sync
