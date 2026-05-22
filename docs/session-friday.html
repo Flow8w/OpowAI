@@ -439,7 +439,7 @@
   <section class="phase">
     <div class="phase-label">Bloc 1 — Install</div>
     <h2 class="phase-title">On <em>installe</em> Opow.AI depuis Claude Code.</h2>
-    <p class="phase-intro">Une seule commande terminale (lancer Claude), tout le reste se passe en conversation. Aucune commande à taper soi-même.</p>
+    <p class="phase-intro">Deux brefs passages dans le terminal (pour lancer puis relancer Claude). Entre les deux, tout se fait en conversation : Claude clone le repo, installe les dépendances Python, configure l'environnement.</p>
 
     <div class="step">
       <div class="step-head"><span class="step-num">1</span>Lancer Claude Code depuis ton dossier home</div>
@@ -454,29 +454,30 @@
     <div class="step">
       <div class="step-head"><span class="step-num">2</span>Demander à Claude d'installer Opow.AI</div>
       <div class="step-body">
-        <p>Dans le chat Claude Code, tape simplement :</p>
-<pre><code>Installe Opow.AI pour moi</code></pre>
-        <p>Claude va exécuter via son outil Bash :</p>
+        <p>Dans le chat Claude Code, copie-colle ce message :</p>
+<pre><code>Installe Opow.AI pour moi.
+Clone le repo https://github.com/Flow8w/OpowAI.git dans ~/opowai,
+puis lance bash install.sh à l'intérieur.</code></pre>
+        <p>Claude exécute via son outil Bash (il te demande l'autorisation à chaque commande, tu confirmes) :</p>
         <ul style="font-size: 13.5px; margin: 0.4rem 0;">
-          <li><code>git clone https://github.com/Flow8w/Opow.AI.git ~/opowai</code></li>
+          <li><code>git clone https://github.com/Flow8w/OpowAI.git ~/opowai</code></li>
           <li><code>cd ~/opowai &amp;&amp; bash install.sh</code></li>
         </ul>
-        <p>Il te demande l'autorisation d'exécuter ces commandes. Tu confirmes.</p>
         <div class="step-verify">Tu vois Claude exécuter les commandes en direct. À la fin : <strong>"Installation terminée 🎉"</strong>.</div>
         <div class="step-warn">Si l'installer remonte une erreur (Python trop ancien, etc.), Claude te le dit clairement. On le règle ensemble.</div>
       </div>
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-num">3</span>Relancer Claude Code dans ~/opowai</div>
+      <div class="step-head"><span class="step-num">3</span>Relancer Claude depuis le dossier Opow.AI</div>
       <div class="step-body">
-        <p>Claude te le rappelle de lui-même : les <em>slash commands</em> d'Opow.AI (<code>/setup-opowai</code>, <code>/opowai-status</code>, etc.) ne sont disponibles que dans une session Claude lancée depuis <code>~/opowai</code>.</p>
-        <p>Quitte la session actuelle :</p>
+        <p>Pour que les <em>slash commands</em> d'Opow.AI (<code>/setup-opowai</code>, <code>/opowai-status</code>…) soient disponibles, Claude doit être lancé <strong>depuis</strong> <code>~/opowai</code>. Claude te dit exactement quoi faire à l'écran ; tu n'as qu'à suivre.</p>
+        <p>Dans le chat, tu tapes :</p>
 <pre><code>/quit</code></pre>
-        <p>Puis relance depuis <code>~/opowai</code> :</p>
+        <p>Tu reviens automatiquement dans ton terminal. Tu copies-colles la ligne que Claude t'a indiquée :</p>
 <pre><code>cd ~/opowai &amp;&amp; claude</code></pre>
-        <p>C'est la seule deuxième commande terminale de la session, et la dernière.</p>
-        <div class="step-verify">Claude Code se relance et reconnaît tous les skills Opow.AI (tu peux le vérifier en tapant <code>/</code> — tu vois la liste des commandes disponibles).</div>
+        <div class="step-verify">Claude Code se relance dans le bon dossier. Tape <code>/</code> dans le chat : la liste des commandes Opow.AI apparaît.</div>
+        <div class="step-tip">C'est l'unique moment où on retourne brièvement au terminal — pour une seule ligne déjà préparée par Claude.</div>
       </div>
     </div>
 
