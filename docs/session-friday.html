@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>OpowAI — Session de setup, step-by-step</title>
-<meta name="description" content="Document opérationnel à suivre pas-à-pas pendant la session de setup d'OpowAI." />
+<title>Opow.AI — Session de setup, step-by-step</title>
+<meta name="description" content="Document opérationnel à suivre pas-à-pas pendant la session de setup d'Opow.AI." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -115,21 +115,67 @@
     position: relative;
     z-index: 1;
   }
+
+  /* LOGO Opow.AI */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .logo-mark::after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--grad-ai);
+  }
+  .logo-text {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.3rem;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .logo-text .dot {
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .logo-text .suffix {
+    font-family: var(--mono);
+    font-size: 0.8em;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
   h1 {
     font-family: var(--serif);
-    font-weight: 350;
-    font-size: clamp(2.5rem, 5vw, 3.6rem);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 4.2vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
     margin: 0 0 1.25rem;
-    font-variation-settings: "opsz" 144, "SOFT" 30;
+    color: var(--text);
     position: relative;
     z-index: 1;
   }
   h1 em {
     font-style: italic;
+    font-weight: 400;
     color: var(--accent);
-    font-variation-settings: "opsz" 144, "SOFT" 70;
   }
   .deck {
     font-size: 1.05rem;
@@ -163,16 +209,20 @@
     border-radius: 1px;
   }
   .phase-title {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-style: italic;
-    font-size: 1.6rem;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
     margin: 0 0 1.5rem;
-    font-variation-settings: "opsz" 96;
+    color: var(--text);
   }
-  .phase-title em { color: var(--accent); }
+  .phase-title em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
   .phase-intro {
     font-size: 14.5px;
     color: var(--text-muted);
@@ -307,15 +357,19 @@
     pointer-events: none;
   }
   .pre-flight h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0 0 0.75rem;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .pre-flight h3 em {
     font-family: var(--serif);
     font-style: italic;
     font-weight: 400;
-    font-size: 1.3rem;
-    margin: 0 0 0.75rem;
-    color: var(--text);
-    font-variation-settings: "opsz" 96;
+    color: var(--accent);
   }
-  .pre-flight h3 em { color: var(--accent); }
 
   /* FINAL */
   .closing {
@@ -346,14 +400,18 @@
   }
   .closing h2 {
     font-family: var(--serif);
-    font-weight: 350;
-    font-style: italic;
-    font-size: 2.2rem;
-    line-height: 1.1;
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 1.15;
     color: var(--bg);
     margin: 0 0 1.25rem;
+    letter-spacing: -0.015em;
   }
-  .closing h2 em { color: var(--accent); }
+  .closing h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
   .closing p { color: rgba(245,241,234,0.8); }
 
   /* PRINT */
@@ -373,10 +431,14 @@
 
   <!-- HEAD -->
   <div class="head">
-    <span class="eyebrow">Session de setup OpowAI · Step-by-step</span>
-    <h1>On suit <em>les étapes</em><br>dans l'ordre.</h1>
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      <span class="logo-text">Opow<span class="dot">.</span><span class="suffix">AI</span></span>
+    </a>
+    <span class="eyebrow">Session de setup · Step-by-step</span>
+    <h1>On suit les étapes<br>dans <em>l'ordre</em>.</h1>
     <p class="deck">
-      Document partagé pour la session. On suit les étapes dans l'ordre, on coche au fur et à mesure. À la fin, OpowAI tourne et tu as un système opérationnel.
+      Document partagé pour la session. On suit les étapes dans l'ordre, on coche au fur et à mesure. À la fin, Opow.AI tourne et tu as un système opérationnel.
     </p>
   </div>
 
@@ -399,7 +461,7 @@
   <!-- ════════════════════════════════════════════════════════════ -->
   <section class="phase">
     <div class="phase-label">Bloc 1 — Install</div>
-    <h2 class="phase-title">On <em>installe</em> OpowAI depuis Claude Code.</h2>
+    <h2 class="phase-title">On <em>installe</em> Opow.AI depuis Claude Code.</h2>
     <p class="phase-intro">Une seule commande terminale (lancer Claude), tout le reste se passe en conversation. Aucune commande à taper soi-même.</p>
 
     <div class="step">
@@ -413,13 +475,13 @@
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-num">2</span>Demander à Claude d'installer OpowAI</div>
+      <div class="step-head"><span class="step-num">2</span>Demander à Claude d'installer Opow.AI</div>
       <div class="step-body">
         <p>Dans le chat Claude Code, tape simplement :</p>
-<pre><code>Installe OpowAI pour moi</code></pre>
+<pre><code>Installe Opow.AI pour moi</code></pre>
         <p>Claude va exécuter via son outil Bash :</p>
         <ul style="font-size: 13.5px; margin: 0.4rem 0;">
-          <li><code>git clone https://github.com/Flow8w/OpowAI.git ~/opowai</code></li>
+          <li><code>git clone https://github.com/Flow8w/Opow.AI.git ~/opowai</code></li>
           <li><code>cd ~/opowai &amp;&amp; bash install.sh</code></li>
         </ul>
         <p>Il te demande l'autorisation d'exécuter ces commandes. Tu confirmes.</p>
@@ -431,13 +493,13 @@
     <div class="step">
       <div class="step-head"><span class="step-num">3</span>Relancer Claude Code dans ~/opowai</div>
       <div class="step-body">
-        <p>Claude te le rappelle de lui-même : les <em>slash commands</em> d'OpowAI (<code>/setup-opowai</code>, <code>/opowai-status</code>, etc.) ne sont disponibles que dans une session Claude lancée depuis <code>~/opowai</code>.</p>
+        <p>Claude te le rappelle de lui-même : les <em>slash commands</em> d'Opow.AI (<code>/setup-opowai</code>, <code>/opowai-status</code>, etc.) ne sont disponibles que dans une session Claude lancée depuis <code>~/opowai</code>.</p>
         <p>Quitte la session actuelle :</p>
 <pre><code>/quit</code></pre>
         <p>Puis relance depuis <code>~/opowai</code> :</p>
 <pre><code>cd ~/opowai &amp;&amp; claude</code></pre>
         <p>C'est la seule deuxième commande terminale de la session, et la dernière.</p>
-        <div class="step-verify">Claude Code se relance et reconnaît tous les skills OpowAI (tu peux le vérifier en tapant <code>/</code> — tu vois la liste des commandes disponibles).</div>
+        <div class="step-verify">Claude Code se relance et reconnaît tous les skills Opow.AI (tu peux le vérifier en tapant <code>/</code> — tu vois la liste des commandes disponibles).</div>
       </div>
     </div>
 
@@ -482,7 +544,7 @@
       <div class="step-head"><span class="step-num">6</span>Confirmer les corrections proposées</div>
       <div class="step-body">
         <p>Pour chaque ⏳, Claude propose une correction (remote upstream, cron, etc.). Tu réponds <code>yes</code> à chaque fois.</p>
-        <div class="step-verify">À la fin : <strong>"Environnement OpowAI prêt"</strong>.</div>
+        <div class="step-verify">À la fin : <strong>"Environnement Opow.AI prêt"</strong>.</div>
       </div>
     </div>
 
@@ -520,7 +582,7 @@
       <div class="step-head"><span class="step-num">8</span>CRM &amp; Sales — connecter Pipedrive</div>
       <div class="step-body">
         <p>Claude présente la thématique et te demande ton outil. Réponds : <strong>Pipedrive</strong>.</p>
-        <p>Le flow OAuth s'ouvre dans ton navigateur. Tu autorises OpowAI sur Pipedrive.</p>
+        <p>Le flow OAuth s'ouvre dans ton navigateur. Tu autorises Opow.AI sur Pipedrive.</p>
         <div class="step-verify">Claude affiche : "✅ Pipedrive connecté" + la liste des skills qui se débloquent immédiatement.</div>
         <div class="step-warn">Si le MCP Pipedrive n'existe pas encore : on passe en mode "connecteur API custom" — Claude te guide. Sinon on skip cette thématique et on revient dessus plus tard.</div>
       </div>
@@ -547,7 +609,7 @@
       <div class="step-head"><span class="step-num">11</span>Knowledge &amp; docs — connecter Notion</div>
       <div class="step-body">
         <p>Réponds : <strong>Notion</strong>. Notion te demande de sélectionner un workspace et des pages à autoriser.</p>
-        <div class="step-tip">Choisis large : autorise le workspace entier ou au minimum la page parente sous laquelle on va créer "📚 OpowAI SOPs".</div>
+        <div class="step-tip">Choisis large : autorise le workspace entier ou au minimum la page parente sous laquelle on va créer "📚 Opow.AI SOPs".</div>
         <div class="step-verify">"✅ Notion connecté" + <code>/all-hands</code> et <code>/publish-sop</code> deviennent activables.</div>
       </div>
     </div>
@@ -555,7 +617,7 @@
     <div class="step">
       <div class="step-head"><span class="step-num">12</span>Communication chat — connecter Slack</div>
       <div class="step-body">
-        <p>Réponds : <strong>Slack</strong>. Tu autorises OpowAI sur ton workspace.</p>
+        <p>Réponds : <strong>Slack</strong>. Tu autorises Opow.AI sur ton workspace.</p>
         <div class="step-verify">Slack connecté. Améliore le coaching sales et les notifications agents.</div>
       </div>
     </div>
@@ -721,7 +783,7 @@
     <div class="step">
       <div class="step-head"><span class="step-num">27</span>Créer la page Notion racine</div>
       <div class="step-body">
-        <p>Claude crée la page <strong>📚 OpowAI SOPs &amp; Playbooks</strong> sur ton Notion. Il te demande l'emplacement parent.</p>
+        <p>Claude crée la page <strong>📚 Opow.AI SOPs &amp; Playbooks</strong> sur ton Notion. Il te demande l'emplacement parent.</p>
         <div class="step-tip">Suggère un emplacement comme "Team &amp; Operations" ou la racine de ton workspace.</div>
         <div class="step-verify">Va sur Notion → la page existe, avec l'arborescence par catégorie (Strategy / Sales / Product / etc.).</div>
       </div>
@@ -772,7 +834,7 @@
     <p class="phase-intro">5 minutes pour caler ce qui va se passer dès lundi, capturer ton feedback, prévoir le retex.</p>
 
     <div class="step">
-      <div class="step-head"><span class="step-num">32</span>Cadrer les rendez-vous OpowAI de la semaine</div>
+      <div class="step-head"><span class="step-num">32</span>Cadrer les rendez-vous Opow.AI de la semaine</div>
       <div class="step-body">
         <p>On revoit ensemble ce que le système va déclencher automatiquement :</p>
         <ul style="font-size: 13.5px; margin-top: 0.4rem;">
@@ -794,7 +856,7 @@
           <li>Ce qui t'a frustré</li>
           <li>Ce que tu vas <em>vraiment</em> utiliser dès lundi</li>
         </ul>
-        <div class="step-verify">Capturé chez moi pour nourrir la v0.2 d'OpowAI.</div>
+        <div class="step-verify">Capturé chez moi pour nourrir la v0.2 d'Opow.AI.</div>
       </div>
     </div>
 
@@ -812,7 +874,7 @@
   <section class="closing">
     <div class="closing-inner">
       <span class="closing-label">Tu es prêt</span>
-      <h2>OpowAI tourne <em>chez toi</em>.</h2>
+      <h2>Opow.AI tourne <em>chez toi</em>.</h2>
       <p>34 étapes. Si on arrive ici, tu as un système opérationnel, des rituels programmés, et un mois pour voir si ça change ta façon de bosser.</p>
       <p style="margin-top: 1.5rem;">Pour le reste : <a href="mailto:florian.guerrier@gmail.com" style="color: var(--bg); border-bottom-color: rgba(245,241,234,0.4);">florian.guerrier@gmail.com</a></p>
     </div>
