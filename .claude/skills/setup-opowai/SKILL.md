@@ -73,6 +73,8 @@ ls .venv 2>/dev/null         # venv existe ?
 git remote -v                # remote configuré ?
 which claude                 # claude code dispo ?
 crontab -l 2>&1 | grep opowai  # cron déjà installé ?
+# Vérif des symlinks globaux des skills
+ls -la ~/.claude/skills/setup-opowai 2>/dev/null  # skill global installé ?
 ```
 
 Affiche un récap clair :
@@ -83,6 +85,7 @@ Affiche un récap clair :
   ✅ Virtualenv .venv présent
   ✅ Dépendances (pyyaml, click)
   ✅ Remote origin configuré (Flow8w/OpowAI)
+  ✅ Skills installés globalement (~/.claude/skills/)
   ⏳ Remote upstream non configuré
   ⏳ Cron OpowAI non installé
 ```
@@ -94,6 +97,7 @@ Pour chaque ⏳ détecté, Claude **propose** la correction et l'exécute après
 - **Venv manquant** → `python3 -m venv .venv && .venv/bin/pip install -r .scripts/opowai/requirements.txt`
 - **Deps manquantes** → `.venv/bin/pip install -r .scripts/opowai/requirements.txt`
 - **Remote upstream absent** → `git remote add upstream https://github.com/Flow8w/OpowAI.git`
+- **Skills non installés globalement** → `bash .scripts/opowai/install_global_skills.sh ~/opowai` (rend les slash commands disponibles depuis n'importe quel dossier, dans toutes les futures sessions). Si Claude exécute ça en cours de session, prévenir : "Tu devras relancer Claude une fois pour que les skills apparaissent dans cette session."
 - **Cron pas installé** → propose `crontab -l > /tmp/current; cat .scripts/cron/opowai.cron >> /tmp/current; crontab /tmp/current` (fera attendre phase 4 pour que le fichier cron existe)
 
 ### Étape -1.3 — Détection des MCPs déjà configurés dans Claude Code
