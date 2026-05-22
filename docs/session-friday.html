@@ -89,7 +89,6 @@
     margin-bottom: 3rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--rule);
-    overflow: hidden;
   }
   .head::before {
     content: "";
@@ -217,14 +216,24 @@
 
   /* STEPS */
   .step {
+    position: relative;
     background: var(--bg-card);
-    border: 1px solid var(--rule);
     border-radius: 10px;
     margin: 0.75rem 0;
     overflow: hidden;
-    transition: border-color 0.2s;
   }
-  .step:hover { border-color: var(--rule-strong); }
+  .step::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: var(--grad-ai);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
   .step-num {
     display: inline-flex;
     align-items: center;
@@ -423,17 +432,6 @@
     </p>
   </div>
 
-  <!-- PRE-FLIGHT -->
-  <div class="pre-flight">
-    <h3>Avant de commencer</h3>
-    <p>Une seule chose à préparer :</p>
-    <div class="check-row"><span class="checkbox"></span><span><strong>Ouvre ton terminal</strong> (Terminal.app ou iTerm)</span></div>
-    <p style="margin-top: 0.75rem; font-size: 13px; color: var(--text-light);">
-      Si Claude Code n'est pas encore installé sur ta machine, fais-le maintenant depuis
-      <a href="https://claude.com/code">claude.com/code</a> — c'est 2 minutes.
-      Le reste, on le fait depuis Claude.
-    </p>
-  </div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
   <!-- BLOC 1 — INSTALL                                              -->
