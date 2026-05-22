@@ -439,7 +439,7 @@
   <section class="phase">
     <div class="phase-label">Bloc 1 — Install</div>
     <h2 class="phase-title">On <em>installe</em> Opow.AI depuis Claude Code.</h2>
-    <p class="phase-intro">Deux brefs passages dans le terminal (pour lancer puis relancer Claude). Entre les deux, tout se fait en conversation : Claude clone le repo, installe les dépendances Python, configure l'environnement.</p>
+    <p class="phase-intro">Deux brefs passages dans le terminal (pour lancer puis relancer Claude). Entre les deux, tout se fait en conversation : Claude clone le repo, installe les dépendances, configure l'environnement, et déploie les skills globalement pour qu'ils soient utilisables depuis n'importe quel dossier ensuite.</p>
 
     <div class="step">
       <div class="step-head"><span class="step-num">1</span>Lancer Claude Code depuis ton dossier home</div>
@@ -463,21 +463,27 @@ puis lance bash install.sh à l'intérieur.</code></pre>
           <li><code>git clone https://github.com/Flow8w/OpowAI.git ~/opowai</code></li>
           <li><code>cd ~/opowai &amp;&amp; bash install.sh</code></li>
         </ul>
-        <div class="step-verify">Tu vois Claude exécuter les commandes en direct. À la fin : <strong>"Installation terminée 🎉"</strong>.</div>
+        <p>Le script <code>install.sh</code> fait trois choses :</p>
+        <ul style="font-size: 13.5px; margin: 0.4rem 0;">
+          <li>Crée l'environnement Python d'Opow.AI dans <code>~/opowai/.venv</code></li>
+          <li>Configure le remote <code>upstream</code> pour les futures mises à jour</li>
+          <li><strong>Installe les skills d'Opow.AI globalement</strong> dans <code>~/.claude/skills/</code> (symlinks) — comme ça les slash commands seront disponibles depuis n'importe quel dossier</li>
+        </ul>
+        <div class="step-verify">Tu vois Claude exécuter les commandes en direct. À la fin : <strong>"Installation terminée 🎉"</strong> + un récap du nombre de skills installés au global.</div>
         <div class="step-warn">Si l'installer remonte une erreur (Python trop ancien, etc.), Claude te le dit clairement. On le règle ensemble.</div>
       </div>
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-num">3</span>Relancer Claude depuis le dossier Opow.AI</div>
+      <div class="step-head"><span class="step-num">3</span>Relancer Claude une seule fois pour activer les skills</div>
       <div class="step-body">
-        <p>Pour que les <em>slash commands</em> d'Opow.AI (<code>/setup-opowai</code>, <code>/opowai-status</code>…) soient disponibles, Claude doit être lancé <strong>depuis</strong> <code>~/opowai</code>. Claude te dit exactement quoi faire à l'écran ; tu n'as qu'à suivre.</p>
-        <p>Dans le chat, tu tapes :</p>
+        <p>Les skills installés en étape 2 ne sont pas encore "vus" par la session Claude en cours — Claude Code charge ses skills au démarrage. Une seule relance suffit, depuis n'importe quel dossier.</p>
+        <p>Dans le chat actuel, tape :</p>
 <pre><code>/quit</code></pre>
-        <p>Tu reviens automatiquement dans ton terminal. Tu copies-colles la ligne que Claude t'a indiquée :</p>
-<pre><code>cd ~/opowai &amp;&amp; claude</code></pre>
-        <div class="step-verify">Claude Code se relance dans le bon dossier. Tape <code>/</code> dans le chat : la liste des commandes Opow.AI apparaît.</div>
-        <div class="step-tip">C'est l'unique moment où on retourne brièvement au terminal — pour une seule ligne déjà préparée par Claude.</div>
+        <p>Tu reviens dans ton terminal. Relance Claude (depuis ton home, c'est très bien) :</p>
+<pre><code>claude</code></pre>
+        <div class="step-verify">Tape <code>/</code> dans le chat : la liste des commandes Opow.AI apparaît (<code>/setup-opowai</code>, <code>/opowai-status</code>, <code>/friday-close</code>, etc.). Activées <strong>globalement</strong>, dispos depuis n'importe quel dossier dans toutes tes prochaines sessions.</div>
+        <div class="step-tip">C'est l'unique moment où on retourne brièvement au terminal — une seule ligne, une seule fois. Après ça, plus jamais besoin.</div>
       </div>
     </div>
 

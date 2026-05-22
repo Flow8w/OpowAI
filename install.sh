@@ -98,18 +98,25 @@ else
   warn "Le moteur OpowAI a renvoyé une erreur (non bloquant — Claude diagnostiquera au setup)"
 fi
 
+# ─── Install skills globally in ~/.claude/skills/ ─────────────
+section "Installation des skills Opow.AI au niveau global"
+say "Création de symlinks dans ~/.claude/skills/ pour que les slash commands"
+say "soient disponibles depuis n'importe quel dossier dans Claude Code."
+bash "$REPO_DIR/.scripts/opowai/install_global_skills.sh" "$REPO_DIR"
+
 # ─── Final message ────────────────────────────────────────────
 section "Installation terminée 🎉"
 cat <<EOF
 
-OpowAI est installé. Toutes les étapes suivantes se font dans Claude Code,
-pas dans le terminal.
+Opow.AI est installé et ses skills sont disponibles globalement.
 
 ${BOLD}Prochaines étapes :${NC}
 
-  1.  ${CYAN}cd $REPO_DIR${NC}
-  2.  ${CYAN}claude${NC}        ${YELLOW}(lance Claude Code dans ce dossier)${NC}
-  3.  ${CYAN}/setup-opowai${NC} ${YELLOW}(démarre l'onboarding guidé)${NC}
+  1.  Quitte cette session Claude Code (${CYAN}/quit${NC}) puis relance-la une fois
+      depuis n'importe quel dossier — par exemple ton home (${CYAN}cd ~ && claude${NC}).
+      Cette relance unique permet à Claude de charger les skills Opow.AI.
+  2.  Une fois Claude relancé, tape ${CYAN}/setup-opowai${NC} pour démarrer
+      l'onboarding guidé.
 
 Le setup ${BOLD}/setup-opowai${NC} s'occupe du reste :
   • Détection automatique de ton environnement
