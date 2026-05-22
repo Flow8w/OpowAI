@@ -116,66 +116,38 @@
     z-index: 1;
   }
 
-  /* LOGO Opow.AI */
+  /* LOGO Opow.AI — wordmark dans le style clientops.fr */
   .logo {
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text);
     display: inline-flex;
-    align-items: center;
-    gap: 10px;
+    align-items: baseline;
+    gap: 0;
     margin-bottom: 2rem;
+    line-height: 1;
     position: relative;
     z-index: 1;
+    border-bottom: none;
   }
-  .logo-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: var(--bg-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .logo-mark::after {
-    content: "";
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--grad-ai);
-  }
-  .logo-text {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: 1.3rem;
-    letter-spacing: -0.015em;
-    color: var(--text);
-    line-height: 1;
-  }
-  .logo-text .dot {
-    color: var(--accent);
-    font-weight: 400;
-  }
-  .logo-text .suffix {
-    font-family: var(--mono);
-    font-size: 0.8em;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--text);
-  }
+  .logo .dot { color: var(--accent); }
   h1 {
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 500;
     font-size: clamp(2.2rem, 4.2vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
     margin: 0 0 1.25rem;
     color: var(--text);
     position: relative;
     z-index: 1;
   }
   h1 em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--text);
   }
   .deck {
     font-size: 1.05rem;
@@ -213,15 +185,14 @@
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 1.2;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     margin: 0 0 1.5rem;
     color: var(--text);
   }
   .phase-title em {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--text);
   }
   .phase-intro {
     font-size: 14.5px;
@@ -247,14 +218,15 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    background: var(--accent);
-    color: var(--bg);
+    background: linear-gradient(135deg, #B8A6CC 0%, #D4A09F 60%, #E8997B 100%);
+    color: #FFFFFF;
     font-family: var(--mono);
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 50%;
     margin-right: 0.6rem;
     vertical-align: middle;
+    box-shadow: 0 1px 2px rgba(107, 91, 149, 0.25);
   }
   .step-head {
     padding: 1rem 1.25rem 0.5rem;
@@ -362,13 +334,12 @@
     font-size: 1.2rem;
     margin: 0 0 0.75rem;
     color: var(--text);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
   .pre-flight h3 em {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--text);
   }
 
   /* FINAL */
@@ -399,18 +370,18 @@
     display: block;
   }
   .closing h2 {
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 500;
     font-size: 2rem;
-    line-height: 1.15;
+    line-height: 1.2;
     color: var(--bg);
     margin: 0 0 1.25rem;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.025em;
   }
   .closing h2 em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--bg);
   }
   .closing p { color: rgba(245,241,234,0.8); }
 
@@ -431,12 +402,9 @@
 
   <!-- HEAD -->
   <div class="head">
-    <a href="#" class="logo">
-      <span class="logo-mark"></span>
-      <span class="logo-text">Opow<span class="dot">.</span><span class="suffix">AI</span></span>
-    </a>
+    <a href="#" class="logo">Opow<span class="dot">.</span>AI</a>
     <span class="eyebrow">Session de setup · Step-by-step</span>
-    <h1>On suit les étapes<br>dans <em>l'ordre</em>.</h1>
+    <h1>On suit les étapes<br>dans l'ordre.</h1>
     <p class="deck">
       Document partagé pour la session. On suit les étapes dans l'ordre, on coche au fur et à mesure. À la fin, Opow.AI tourne et tu as un système opérationnel.
     </p>
